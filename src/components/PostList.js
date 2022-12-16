@@ -2,27 +2,30 @@ import React,{useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { __getcontents } from "../redux/modules/contentsSlice";
+import { __getContentsAll } from "../redux/modules/contentsSlice";
 
 function PostList(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, error , contents} = useSelector((state) => state.contents);
   useEffect(()=>{
-    dispatch(__getcontents())
+    dispatch(__getContentsAll())
   },[dispatch])
   // console.log(contents)
-  const toDetail = () =>{
-    navigate("/")
+  const toDetail = (id) =>{
+    navigate(`detail/${id}`)
   }
 
   return(
     <div>
-      List
+      <SortBox>
+        <SortBtn>최신순</SortBtn>
+        <SortBtn>추천순</SortBtn>
+      </SortBox>
       <ListBox>
         {contents?.map((v)=>{
           return(
-            <List key={v.id} onClick={()=>{toDetail()}}>
+            <List key={v.id} onClick={()=>{toDetail(v.id)}}>
               <ConTitle>{v.title}</ConTitle>
               <ConAuthor>{v.nickname}</ConAuthor>
               <ConDate>{v.createdAt}</ConDate>
@@ -39,7 +42,7 @@ export default PostList;
 const ListBox = styled.div`
   display: flex;
   width: 1200px;
-  margin: auto;
+  margin: 20px auto;
   flex-direction: column;
   gap: 20px;
 `
@@ -48,6 +51,7 @@ const List = styled.div`
   display: flex;
   flex-direction: row;
   border: 2px solid var(--color1);
+  padding: 10px;
 `
 
 const ConTitle = styled.span`
@@ -63,3 +67,22 @@ const ConDate = styled.span`
   flex-grow: 1;
   text-align: center;
 `;
+
+const SortBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
+const SortBtn = styled.button`
+  border: none;
+  background-color: var(--color2);
+  height: 30px;
+  width: 100px;
+  color: white;
+  margin: 20px;
+  &:hover{
+    background-color: white;
+    color: Black;
+    border: 3px solid var(--color2);
+  }
+`
