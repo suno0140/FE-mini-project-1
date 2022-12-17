@@ -1,16 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/Button";
-import {ReactComponent as icon } from "../img/TS_icon.svg"
+import {ReactComponent as icon } from "../img/TS_icon_2.svg"
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <HeadLine>
       <TestLink to="/"><IconImg /></TestLink>
       <BtnBox>
-        <HeadBtn to="login">Login</HeadBtn>
-        <HeadBtn to="signup">Signup</HeadBtn>
+        <HeadBtn onClick={()=>navigate("login")}>Login</HeadBtn>
+        <HeadBtn onClick={()=>navigate("signup")}>Signup</HeadBtn>
       </BtnBox>
     </HeadLine>
   )
@@ -40,7 +41,7 @@ const HeadLine = styled.div`
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 2px 0px 0px var(--color2);
-
+  overflow: hidden;
 `
 const BtnBox = styled.div`
   background: none;
