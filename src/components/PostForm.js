@@ -1,48 +1,45 @@
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { __addContent } from "../redux/modules/contentsSlice"
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { __addContent } from "../redux/modules/contentsSlice";
 
-import styled from "styled-components"
+import styled from "styled-components";
 
 function PostForm() {
-  const [isClick, setClick] = useState(false)
-  const navigate = useNavigate()
-  const { msg } = useSelector((state) => state.contents)
-  const dispatch = useDispatch()
+  const [isClick, setClick] = useState(false);
+  const navigate = useNavigate();
+  const { msg } = useSelector((state) => state.contents);
+  const dispatch = useDispatch();
   const [content, setContent] = useState({
-    title : "",
-    content : "",
-  })
+    title: "",
+    content: "",
+  });
   const changeInput = (e) => {
-    const { name, value } = e.target
-    setContent({ ...content, [name]: value })
-  }
+    const { name, value } = e.target;
+    setContent({ ...content, [name]: value });
+  };
 
   const onAddHandler = async (e) => {
-    e.preventDefault()
-    if (
-      content.title.trim() === "" ||
-      content.content.trim() === ""
-    ) {
-      alert("공백을 채워주세요")
-      return
+    e.preventDefault();
+    if (content.title.trim() === "" || content.content.trim() === "") {
+      alert("공백을 채워주세요");
+      return;
     }
-    if(!window.confirm("추가 하겠습니까?")){
-      return
+    if (!window.confirm("추가 하겠습니까?")) {
+      return;
     } else {
-      await dispatch(__addContent({ ...content }))
-      setClick(true)
+      await dispatch(__addContent({ ...content }));
+      setClick(true);
     }
-  }
+  };
 
   useEffect(() => {
-    if (!isClick) return
+    if (!isClick) return;
     if (msg === "success" && isClick) {
-      navigate("/")
+      navigate("/");
     }
-    alert(msg)
-  }, [msg, isClick])
+    alert(msg);
+  }, [msg, isClick]);
 
   return (
     <FormBox method="post" onSubmit={onAddHandler}>
@@ -66,10 +63,10 @@ function PostForm() {
 
       <button onSubmit={onAddHandler}>확인</button>
     </FormBox>
-  )
+  );
 }
 
-export default PostForm
+export default PostForm;
 
 const FormBox = styled.form`
   border: 2px solid black;
@@ -82,14 +79,14 @@ const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`
+`;
 const FormInfo = styled.div`
   grid-area: info;
   text-align: center;
-`
+`;
 
 const InputTitle = styled.input`
-  border : none;
+  border: none;
   padding: 10px;
   border-bottom: 2px solid var(--color2);
 `;
@@ -98,4 +95,4 @@ const InputBody = styled.textarea`
   border: 2px solid var(--color2);
   height: 250px;
   padding: 10px;
-`
+`;
