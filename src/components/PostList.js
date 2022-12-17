@@ -2,16 +2,17 @@ import React,{useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { __getContentsAll } from "../redux/modules/contentsSlice";
+import { __getContentsAll, setInitialError } from "../redux/modules/contentsSlice";
+import Button from "./Button";
 
 function PostList(){
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, error , contents} = useSelector((state) => state.contents);
   useEffect(()=>{
+    dispatch(setInitialError())
     dispatch(__getContentsAll())
   },[dispatch])
-  // console.log(contents)
   const toDetail = (id) =>{
     navigate(`detail/${id}`)
   }
@@ -73,16 +74,8 @@ const SortBox = styled.div`
   justify-content: flex-end;
 `
 
-const SortBtn = styled.button`
-  border: none;
-  background-color: var(--color2);
+const SortBtn = styled(Button)`
   height: 30px;
   width: 100px;
-  color: white;
   margin: 20px;
-  &:hover{
-    background-color: white;
-    color: Black;
-    border: 3px solid var(--color2);
-  }
 `

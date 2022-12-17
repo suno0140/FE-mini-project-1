@@ -5,6 +5,8 @@ import Signup from "../pages/Signup";
 import Detail from "../pages/Detail";
 import Login from "../pages/Login";
 import Layout from "./Layout";
+import NotFound from "../pages/NotFound";
+import Modify from "../pages/Modify";
 
 
 function Router() {
@@ -14,10 +16,14 @@ function Router() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/posting" element={<Posting />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/modify/:id" element={<Modify />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+
+            <Route path="*" element={<NotFound />} />
+
           </Routes>
         </Layout>
       </BrowserRouter>
