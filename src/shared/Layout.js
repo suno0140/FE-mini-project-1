@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/Button";
-import {ReactComponent as icon } from "../img/TS_icon.svg"
+import {ReactComponent as icon } from "../img/TS_icon_2.svg"
 
 function Header() {
   const navigate = useNavigate();

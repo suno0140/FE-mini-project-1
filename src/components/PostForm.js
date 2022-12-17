@@ -30,15 +30,6 @@ function PostForm() {
     const { name, value } = e.target
     setNewContent({ ...newContent, [name]: value })
   }
-
-  const subHandler = () => {
-    if(id === undefined) {
-      onAddHandler();
-    } else {
-      onPatchHandler();
-    }
-  }
-
   const onAddHandler = async (e) => {
     e.preventDefault()
     console.log(newContent)
@@ -56,25 +47,6 @@ function PostForm() {
       setClick(true)
     }
   }
-
-  const onPatchHandler = async (e) => {
-    e.preventDefault()
-    console.log(newContent)
-    if (
-      newContent.title.trim() === "" ||
-      newContent.content.trim() === ""
-    ) {
-      alert("공백을 채워주세요")
-      return
-    }
-    if(!window.confirm("수정 하겠습니까?")){
-      return
-    } else {
-      await dispatch(__patchContent(id,{ ...newContent }))
-      setClick(true)
-    }
-  }
-  
   useEffect(() => {
     if (!isClick) return
     if (msg === "success" && isClick) {
@@ -84,7 +56,7 @@ function PostForm() {
   }, [msg, isClick])
 
   return (
-    <FormBox method="post" onSubmit={subHandler}>
+    <FormBox method="post" onSubmit={onAddHandler}>
       <InputTitle
         required
         type="text"
@@ -102,9 +74,7 @@ function PostForm() {
         onChange={changeInput}
         placeholder="내용 입력"
       ></InputBody>
-      {id === undefined? 
-        <SubBtn onSubmit={onAddHandler}>추가</SubBtn> : 
-        <SubBtn onSubmit={onPatchHandler}>수정</SubBtn> }
+        <SubBtn onSubmit={onAddHandler}>추가</SubBtn>
     </FormBox>
   )
 }

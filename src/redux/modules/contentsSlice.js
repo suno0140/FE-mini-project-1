@@ -7,13 +7,13 @@ const initialState = {
   contents: [],
   isLoading: false,
   error: null,
-  msg : "",
+  msg: "",
   content: {}
 }
 
 const axiosDB = axios.create({
-  baseURL : "http://localhost:3001",
-  headers : {}
+  baseURL: "http://localhost:3001",
+  headers: {}
 })
 
 export const __getContentsAll = createAsyncThunk(
@@ -37,7 +37,7 @@ export const __getContent = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
-  } 
+  }
 )
 export const __addContent = createAsyncThunk(
   "content/add",
@@ -55,31 +55,32 @@ export const __delContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axiosDB.delete(`/contents/${payload.id}`)
-      return thunkAPI.fulfillWithValue(payload.id)
+      return thunkAPI.fulfillWithValue("success")
+
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+      return thunkAPI.rejectWithValue("error")
+
     }
-  } 
+  }
 )
 export const __patchContent = createAsyncThunk(
   "content/patch",
   async (payload, thunkAPI) => {
     try {
-      console.log("payload",payload)
       await axiosDB.patch(`/contents/${payload.id}`, payload.newContent)
-      return thunkAPI.fulfillWithValue(payload.id)
+      return thunkAPI.fulfillWithValue("success")
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+      return thunkAPI.rejectWithValue("error")
     }
-  } 
+  }
 )
 
 
 export const contentsSlice = createSlice({
   name: "contents",
   initialState,
-  reducers:{
-    setInitialError : (state, action) =>{
+  reducers: {
+    setInitialError: (state, action) => {
       state.error = null
       console.log("setError", state.error)
     }
@@ -138,8 +139,21 @@ export const contentsSlice = createSlice({
         state.isLoading = false
         state.msg = action.payload
       })
+
+      // patchContent 
+      .addCase(__patchContent.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(__patchContent.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.msg = action.payload
+      })
+      .addCase(__patchContent.rejected, (state, action) => {
+        state.isLoading = false
+        state.msg = action.payload
+      })
   },
 })
 
-export const {setInitialError} = contentsSlice.actions;
+export const { setInitialError } = contentsSlice.actions;
 export default contentsSlice.reducer;

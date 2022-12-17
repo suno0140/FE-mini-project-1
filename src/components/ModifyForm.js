@@ -46,7 +46,7 @@ function ModifyForm() {
   useEffect(() => {
     if (!isClick) return
     if (msg === "success" && isClick) {
-      navigate("/")
+      navigate(`../detail/${id}`)
     }
     alert(msg)
   }, [msg, isClick])
