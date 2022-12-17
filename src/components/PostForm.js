@@ -9,17 +9,11 @@ import Button from "./Button"
 function PostForm() {
   const {id} = useParams();
   const { content } = useSelector((state) => state.contents)
-  const initialContent = (id === undefined)?    
-  {
-    title : "",
-    content : "",
-  } :
+  const initialContent = 
   {
     title : content.title,
     content : content.content
   }
-  
-  console.log(id, id === undefined)
 
   const [isClick, setClick] = useState(false)
   const navigate = useNavigate()

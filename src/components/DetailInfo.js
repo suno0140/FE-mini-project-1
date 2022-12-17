@@ -32,7 +32,6 @@ function DetailInfo() {
       return
     } else {
       await dispatch(__delContent(id))
-      setClick(true)
     }
   }
 

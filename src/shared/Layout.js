@@ -10,8 +10,8 @@ function Header() {
     <HeadLine>
       <TestLink to="/"><IconImg /></TestLink>
       <BtnBox>
-        <HeadBtn onClick={()=>navigate("login")}>Login</HeadBtn>
-        <HeadBtn onClick={()=>navigate("signup")}>Signup</HeadBtn>
+        <HeadBtn onClick={()=>navigate("login")}>로그인</HeadBtn>
+        <HeadBtn onClick={()=>navigate("signup")}>화원 가입</HeadBtn>
       </BtnBox>
     </HeadLine>
   )

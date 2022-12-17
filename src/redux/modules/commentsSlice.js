@@ -29,27 +29,28 @@ export const __addComment = createAsyncThunk(
   "comment/add",
   async (payload, thunkAPI) => {
     try {
-      await axiosDB.post(`/comment`, payload)
+      console.log(payload)
+      await axiosDB.post(`/comments`, payload)
       return thunkAPI.fulfillWithValue("success")
     } catch (error) {
       return thunkAPI.rejectWithValue("error")
     }
   }
 )
-export const __delContent = createAsyncThunk(
+export const __delComment = createAsyncThunk(
   "comment/delete",
   async (payload, thunkAPI) => {
     try {
-      await axiosDB.delete(`/comments/${payload.id}`)
-      return thunkAPI.fulfillWithValue("success")
-
+      console.log(payload)
+      await axiosDB.delete(`/comments/${payload}`)
+      return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
       return thunkAPI.rejectWithValue("error")
-
     }
   }
 )
-export const __patchContent = createAsyncThunk(
+
+export const __patchComment = createAsyncThunk(
   "comment/patch",
   async (payload, thunkAPI) => {
     try {
@@ -74,7 +75,7 @@ export const commentsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    
+
       .addCase(__getComments.pending, (state) => {
         state.isLoading = true
       })
@@ -85,6 +86,20 @@ export const commentsSlice = createSlice({
       .addCase(__getComments.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.payload
+      })
+
+      // delContent 
+      .addCase(__delComment.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(__delComment.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.comments = state.comments.filter((v) => v.id !== action.payload)
+        state.msg = "success"
+      })
+      .addCase(__delComment.rejected, (state, action) => {
+        state.isLoading = false
+        state.msg = "error"
       })
   },
 })

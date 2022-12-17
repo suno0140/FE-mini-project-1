@@ -82,7 +82,6 @@ export const contentsSlice = createSlice({
   reducers: {
     setInitialError: (state, action) => {
       state.error = null
-      console.log("setError", state.error)
     }
   },
   extraReducers: (builder) => {
