@@ -34,9 +34,6 @@ function PostForm() {
       await dispatch(__addContent({ ...content }))
       setClick(true)
     }
-
-    // console.log(msg)
-    // navigate("/")
   }
 
   useEffect(() => {
@@ -46,19 +43,6 @@ function PostForm() {
     }
     alert(msg)
   }, [msg, isClick])
-  // onClick={() => {
-  //   if (!window.confirm("삭제하시겠습니까?")) {
-  //     // 취소(아니오) 버튼 클릭 시 이벤트
-  //     return
-  //   } else {
-  //     // 확인(예) 버튼 클릭 시 이벤트
-  //     setContent(null)
-  //     dispatch(delContent(pageId))
-  //     // onClickDelete(pageId)
-  //     // fetchActualDetail()
-  //     navigate("/") // 리렌더 안 됨
-  //   }
-  // }}
 
   return (
     <FormBox method="post" onSubmit={onAddHandler}>

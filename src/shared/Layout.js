@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import icon from "../img/TS_icon.svg"
+import Button from "../components/Button";
+import {ReactComponent as icon } from "../img/TS_icon.svg"
 
 function Header() {
   return (
     <HeadLine>
-      <TestLink to="/"><IconImg src={icon}/></TestLink>
+      <TestLink to="/"><IconImg /></TestLink>
       <BtnBox>
         <HeadBtn to="login">Login</HeadBtn>
         <HeadBtn to="signup">Signup</HeadBtn>
@@ -51,21 +52,16 @@ const TestLink = styled(Link)`
   color:var(--color2);
 `
 
-const IconImg = styled.img`
+const IconImg = styled(icon)`
   align-content: center;
   background-size: cover;
   width: 200px;
+  & path{
+    fill: var(--color1);
+  }
 `
-const HeadBtn = styled.button`
-  border: none;
-  background-color: var(--color2);
+const HeadBtn = styled(Button)`
   height: 50px;
   width: 100px;
-  color: white;
   margin: 20px;
-  &:hover{
-    background-color: white;
-    color: Black;
-    border: 3px solid var(--color2);
-  }
 `
