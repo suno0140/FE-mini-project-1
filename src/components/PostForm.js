@@ -34,20 +34,20 @@ function PostForm() {
       alert("공백을 채워주세요")
       return
     }
-    if(!window.confirm("추가 하겠습니까?")){
-      return
+    if (!window.confirm("추가 하겠습니까?")) {
+      return;
     } else {
       await dispatch(__addContent({ ...newContent }))
       setClick(true)
     }
   }
   useEffect(() => {
-    if (!isClick) return
+    if (!isClick) return;
     if (msg === "success" && isClick) {
-      navigate("/")
+      navigate("/");
     }
-    alert(msg)
-  }, [msg, isClick])
+    alert(msg);
+  }, [msg, isClick]);
 
   return (
     <FormBox method="post" onSubmit={onAddHandler}>
@@ -70,10 +70,10 @@ function PostForm() {
       ></InputBody>
         <SubBtn onSubmit={onAddHandler}>추가</SubBtn>
     </FormBox>
-  )
+  );
 }
 
-export default PostForm
+export default PostForm;
 
 const FormBox = styled.form`
   border: 2px solid black;
@@ -87,8 +87,9 @@ const FormBox = styled.form`
   flex-direction: column;
   gap: 30px;
 `
+
 const InputTitle = styled.input`
-  border : none;
+  border: none;
   padding: 10px;
   border-bottom: 2px solid var(--color2);
 `;
@@ -97,9 +98,11 @@ const InputBody = styled.textarea`
   border: 2px solid var(--color2);
   height: 250px;
   padding: 10px;
+
 `
 const SubBtn = styled(Button)`
   height: 50px;
   width: 200px;
   margin: auto;
 `
+
