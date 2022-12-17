@@ -6,21 +6,15 @@ import { __addContent, __patchContent } from "../redux/modules/contentsSlice"
 import styled from "styled-components"
 import Button from "./Button"
 
-function PostForm() {
+function ModifyForm() {
   const {id} = useParams();
   const { content } = useSelector((state) => state.contents)
-  const initialContent = (id === undefined)?    
-  {
-    title : "",
-    content : "",
-  } :
+  const initialContent =
   {
     title : content.title,
     content : content.content
   }
   
-  console.log(id, id === undefined)
-
   const [isClick, setClick] = useState(false)
   const navigate = useNavigate()
   const { msg } = useSelector((state) => state.contents)
@@ -29,32 +23,6 @@ function PostForm() {
   const changeInput = (e) => {
     const { name, value } = e.target
     setNewContent({ ...newContent, [name]: value })
-  }
-
-  const subHandler = () => {
-    if(id === undefined) {
-      onAddHandler();
-    } else {
-      onPatchHandler();
-    }
-  }
-
-  const onAddHandler = async (e) => {
-    e.preventDefault()
-    console.log(newContent)
-    if (
-      newContent.title.trim() === "" ||
-      newContent.content.trim() === ""
-    ) {
-      alert("공백을 채워주세요")
-      return
-    }
-    if(!window.confirm("추가 하겠습니까?")){
-      return
-    } else {
-      await dispatch(__addContent({ ...newContent }))
-      setClick(true)
-    }
   }
 
   const onPatchHandler = async (e) => {
@@ -70,7 +38,7 @@ function PostForm() {
     if(!window.confirm("수정 하겠습니까?")){
       return
     } else {
-      await dispatch(__patchContent(id,{ ...newContent }))
+      await dispatch(__patchContent({ id ,newContent }))
       setClick(true)
     }
   }
@@ -84,7 +52,7 @@ function PostForm() {
   }, [msg, isClick])
 
   return (
-    <FormBox method="post" onSubmit={subHandler}>
+    <FormBox method="post" onSubmit={onPatchHandler}>
       <InputTitle
         required
         type="text"
@@ -102,14 +70,12 @@ function PostForm() {
         onChange={changeInput}
         placeholder="내용 입력"
       ></InputBody>
-      {id === undefined? 
-        <SubBtn onSubmit={onAddHandler}>추가</SubBtn> : 
-        <SubBtn onSubmit={onPatchHandler}>수정</SubBtn> }
+        <SubBtn onSubmit={onPatchHandler}>수정</SubBtn>
     </FormBox>
   )
 }
 
-export default PostForm
+export default ModifyForm
 
 const FormBox = styled.form`
   border: 2px solid black;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { __delContent, __getContent } from "../redux/modules/contentsSlice";
@@ -6,17 +6,37 @@ import { __delContent, __getContent } from "../redux/modules/contentsSlice";
 import styled from "styled-components";
 
 function DetailInfo() {
+  const [isClick, setClick] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = useParams();
-  const { isLoading, error, content } = useSelector((state) => state.contents);
+  const { isLoading, error, msg, content } = useSelector((state) => state.contents);
   useEffect(() => {
     dispatch(__getContent(id))
+    console.log("error" , error)
+    if(error){
+      alert(error.message)
+      navigate("../")
+    }
   }, [dispatch])
 
-  const delHandler = () =>{
-    dispatch(__delContent(id))
+  useEffect(()=>{
+    if(!isClick) return
+    if(msg === "success" && isClick){
+      navigate("../")
+    }
+  },[msg, isClick])
+
+  const delHandler = async() =>{
+    if(!window.confirm("삭제 하시겠습니까?")){
+      return
+    } else{
+      await dispatch(__delContent(id))
+      setClick(true)
+    }
   }
+
+
 
   return (
     <ContentBox>
@@ -28,7 +48,7 @@ function DetailInfo() {
         <div>{content.createdAt}</div>
       </ConMin>
       <BtnBox>
-        <ConBtn>수정</ConBtn>
+        <ConBtn onClick={()=>navigate(`../modify/${content.id}`)}>수정</ConBtn>
         <ConBtn onClick={delHandler}>삭제</ConBtn>
       </BtnBox>
     </ContentBox>
@@ -53,6 +73,7 @@ const ConTitle = styled.div`
 
 const ConBody = styled.div`
   padding: 20px;
+  white-space: pre-line;
 `
 
 const ConMin = styled.div`
@@ -69,7 +90,7 @@ const BtnBox = styled.div`
 const ConBtn = styled.button`
   border: none;
   background-color: var(--color2);
-  height: 50px;
+  height: 30px;
   width: 100px;
   color: white;
   margin: 20px;

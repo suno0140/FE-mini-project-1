@@ -61,12 +61,29 @@ export const __delContent = createAsyncThunk(
     }
   } 
 )
+export const __patchContent = createAsyncThunk(
+  "content/patch",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("payload",payload)
+      await axiosDB.patch(`/contents/${payload.id}`, payload.newContent)
+      return thunkAPI.fulfillWithValue(payload.id)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  } 
+)
 
 
 export const contentsSlice = createSlice({
   name: "contents",
   initialState,
-  reducers: {},
+  reducers:{
+    setInitialError : (state, action) =>{
+      state.error = null
+      console.log("setError", state.error)
+    }
+  },
   extraReducers: (builder) => {
     builder
       // getcontents reducer
@@ -102,10 +119,11 @@ export const contentsSlice = createSlice({
       .addCase(__delContent.fulfilled, (state, action) => {
         state.isLoading = false
         state.contents = state.contents.filter((v) => v.id !== action.payload)
+        state.msg = "success"
       })
       .addCase(__delContent.rejected, (state, action) => {
         state.isLoading = false
-        state.error = action.payload
+        state.msg = "error"
       })
 
       // addContent 
@@ -123,5 +141,5 @@ export const contentsSlice = createSlice({
   },
 })
 
-export const {} = contentsSlice.actions;
+export const {setInitialError} = contentsSlice.actions;
 export default contentsSlice.reducer;
