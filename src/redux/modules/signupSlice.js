@@ -1,6 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+// const Server = {process.env.ReACT_APP_SERVER}
+
 const initialState = {
   signup: [],
   isLoading: false,

@@ -5,42 +5,94 @@ import Button from "../components/Button";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { __addSignup } from "../redux/modules/signupSlice";
+import { useCallback } from "react";
 
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [signup, setSignup] = useState({
-    userid: "",
-    nickname: "",
-    password: "",
+  const [userid, setUserid] = useState("");
+  const [nickname, setNickName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const [useridMessage, setUseridMessage] = useState("");
+  const [nickNameMessage, setNickNameMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+
+  const [isUserid, setIsUserid] = useState(false);
+  const [isNickName, setIsNickName] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  const onChangeUserId = useCallback((e) => {
+    const useridRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const useridCurrent = e.target.value;
+    setUserid(useridCurrent);
+
+    if (!useridRegex.test(useridCurrent)) {
+      setUseridMessage("올바른 이메일 형식이 아닙니다");
+      setIsUserid(false);
+    } else {
+      setUseridMessage("올바른 이메일 형식입니다.");
+      setIsUserid(true);
+    }
+  }, []);
+
+  const onChangeNickName = useCallback((e) => {
+    setNickName(e.target.value);
+    if (e.target.value < 2 || e.target.value > 8) {
+      setNickNameMessage(`문자가 포함되어야 합니다.`);
+      setIsNickName(false);
+    } else {
+      setNickNameMessage(`올바른 닉네임 형식입니다.`);
+      setIsNickName(true);
+    }
   });
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const onChangePassword = useCallback((e) => {
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordCurrent = e.target.value;
+    setPassword(passwordCurrent);
 
-  const changeInput = (e) => {
-    const { name, value } = e.target;
-    setSignup({ ...signup, [name]: value });
-  };
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+      );
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("안전한 비밀번호입니다.");
+      setIsPassword(true);
+    }
+  }, []);
+
+  const onChangePasswordConfirm = useCallback(
+    (e) => {
+      const passwordConfirmCurrent = e.target.value;
+      setPasswordConfirm(passwordConfirmCurrent);
+
+      if (password === passwordConfirmCurrent) {
+        setPasswordConfirmMessage("비밀번호가 일치합니다.");
+        setIsPasswordConfirm(true);
+      } else {
+        setPasswordConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요!");
+        setIsPasswordConfirm(false);
+      }
+    },
+    [password]
+  );
 
   const onClickLogin = () => {
     navigate(`/login`);
   };
 
   const onClickSignup = () => {
-    if (
-      signup.userid.trim() === "" ||
-      signup.password.trim() === "" ||
-      signup.nickname.trim() === "" ||
-      confirmPassword.trim() === ""
-    ) {
-      alert("빈칸을 입력해주세요");
-      return;
-    } else if (signup.nickname !== confirmPassword) {
-      alert("비밀번호를 확인하세요");
-      return;
-    }
-    dispatch(__addSignup(signup));
+    dispatch(__addSignup({ userid, nickname, password }));
+    alert("회원가입에 성공하셨습니다.");
+    navigate(`/login`);
   };
 
   return (
@@ -50,37 +102,42 @@ function Signup() {
           <StTitle>회원가입</StTitle>
           <Stlabel>아이디</Stlabel>
           <Stdiv>
-            <StInput
-              onChange={changeInput}
-              name="userid"
-              type="email"
-            ></StInput>
+            <StInput onChange={onChangeUserId} type="email"></StInput>
             <StConfirmBtn>중복체크</StConfirmBtn>
           </Stdiv>
 
+          {userid.length > 0 && (
+            <span className={`message ${isUserid ? "success" : "error"}`}>
+              {useridMessage}
+            </span>
+          )}
+
           <Stlabel>닉네임</Stlabel>
           <Stdiv>
-            <StInput
-              onChange={changeInput}
-              name="nickname"
-              type="text"
-            ></StInput>
+            <StInput onChange={onChangeNickName} type="text"></StInput>
             <StConfirmBtn>중복체크</StConfirmBtn>
           </Stdiv>
+          {nickname.length > 1 && (
+            <span className={`message ${isNickName ? "success" : "error"}`}>
+              {nickNameMessage}
+            </span>
+          )}
           <Stlabel>비밀번호</Stlabel>
-          <StInput
-            type="password"
-            onChange={changeInput}
-            name="password"
-          ></StInput>
+          <StInput type="password" onChange={onChangePassword}></StInput>
+          {password.length > 0 && (
+            <span className={`message ${isPassword ? "success" : "error"}`}>
+              {passwordMessage}
+            </span>
+          )}
           <Stlabel>비밀번호확인</Stlabel>
-          <StInput
-            type="password"
-            onChange={(e) => {
-              const { value } = e.target;
-              setConfirmPassword(value);
-            }}
-          ></StInput>
+          <StInput type="password" onChange={onChangePasswordConfirm}></StInput>
+          {passwordConfirm.length > 0 && (
+            <span
+              className={`message ${isPasswordConfirm ? "success" : "error"}`}
+            >
+              {passwordConfirmMessage}
+            </span>
+          )}
           <br />
           <StButtonBox>
             <StSignupBtn
@@ -90,7 +147,15 @@ function Signup() {
             >
               뒤로가기
             </StSignupBtn>
-            <StSignupBtn onClick={onClickSignup}>회원가입</StSignupBtn>
+            <StSignupBtn
+              type="submit"
+              disabled={
+                !(isNickName && isPassword && isUserid && isPasswordConfirm)
+              }
+              onClick={onClickSignup}
+            >
+              회원가입
+            </StSignupBtn>
           </StButtonBox>
         </StForm>
       </StcontainerBox>
@@ -99,7 +164,6 @@ function Signup() {
 }
 
 export default Signup;
-
 const StcontainerBox = styled.div`
   margin: 50px 10px 30px 30px;
   width: 90%;
