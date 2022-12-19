@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const axiosDB = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: DB,
   headers: {},
 });
 

@@ -15,7 +15,7 @@ export const __getContentsAll = createAsyncThunk(
   "contents/getAll",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosDB.get("/contents");
+      const data = await axiosDB.get("/api/posts");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -27,7 +27,7 @@ export const __getContent = createAsyncThunk(
   "content/get",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosDB.get(`/contents/${payload.id}`);
+      const data = await axiosDB.get(`/api/posts/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -39,7 +39,7 @@ export const __addContent = createAsyncThunk(
   "content/add",
   async (payload, thunkAPI) => {
     try {
-      await axiosDB.post(`/contents`, payload);
+      await axiosDB.post(`/api/posts`, payload);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
@@ -50,7 +50,7 @@ export const __delContent = createAsyncThunk(
   "content/delete",
   async (payload, thunkAPI) => {
     try {
-      await axiosDB.delete(`/contents/${payload.id}`);
+      await axiosDB.delete(`/api/posts/${payload.id}`);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
@@ -61,8 +61,8 @@ export const __patchContent = createAsyncThunk(
   "content/patch",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload)
-      await axiosDB.patch(`/contents/${payload.id}`, payload.newContent);
+      console.log(payload);
+      await axiosDB.patch(`/api/posts/${payload.id}`, payload.newContent);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
