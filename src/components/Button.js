@@ -14,9 +14,12 @@ const StBtn = styled.button`
 
 const Button = (props) => {
   return (
-
-    <StBtn className = {props.className} onClick={props.onClick} onSubmit={props.onSubmit}>
-
+    <StBtn
+      className={props.className}
+      onClick={props.onClick}
+      onSubmit={props.onSubmit}
+      disabled={props.disabled}
+    >
       {props.children}
     </StBtn>
   );

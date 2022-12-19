@@ -1,6 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const Server = process.env.REACT_APP_SERVER;
+
 const initialState = {
   signup: [],
   isLoading: false,
@@ -8,7 +10,7 @@ const initialState = {
 };
 
 const axiosDB = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "Server",
   headers: {},
 });
 
