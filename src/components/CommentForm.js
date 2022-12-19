@@ -63,8 +63,9 @@ const FormBox = styled.form`
 `;
 const InputTitle = styled.input`
   border : none;
-  padding: 10px;
+  padding: 5px;
   border-bottom: 2px solid var(--color2);
+  font-size: medium;
   flex: 1;
 `;
 
