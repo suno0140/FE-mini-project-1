@@ -2,47 +2,90 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import { useDispatch } from "react-redux";
-import { __loginRequest } from "../redux/modules/loginSlice";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { axiosDB } from "../api/axiosAPI";
+// import { postLogin } from "../components/LoginForm/api/postLogin";
+// import { useSweet } from "../components/LoginForm/utils/useSweet";
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
-  const [login, setLogin] = useState({
-    userid: "",
-    password: "",
-  });
-  const onClickLogin = () => {
-    if (login.userid.trim() === "" || login.password.trim() === "") {
-      alert("아이디와 비밀번호를 입력해주세요");
-      return;
+  const dispatch = useDispatch();
+  const [userid, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const postLogin = async (post) => {
+    try {
+      const data = await axiosDB.post("/api/members/login", post);
+      return data;
+    } catch (error) {
+      console.log(error);
     }
-    dispatch(__loginRequest(login));
   };
 
-  const onClickSignup = () => {
-    navigate(`/signup`);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    postLogin({
+      userid,
+      password,
+    }).then((res) => {
+      localStorage.setItem("id", res.headers.authorization);
+      // navigate("/");
+    });
+
+    // .catch((error) => useSweet(1000, "error", error.response.data.msg));
   };
+
+  // const onClickLogin = (e) => {
+  //   e.preventDefault();
+  //   console.log(userid);
+  //   console.log(password);
+  //   if (userid.trim() === "" || password.trim() === "") {
+  //     alert("아이디와 비밀번호를 입력해주세요");
+  //     return;
+  //   }
+  //   const Login = { userid: userid, password: password };
+  //   dispatch(__loginRequest(Login));
+  // };
   return (
     <>
       <StcontainerBox>
         <StForm>
           <StTitle>로그인</StTitle>
           <Stlabel>아이디</Stlabel>
-          <StInput name="userid" type="email"></StInput>
+          <StInput
+            name="userid"
+            type="email"
+            onChange={(e) => {
+              const { value } = e.target;
+              setUserId(value);
+            }}
+          ></StInput>
           <Stlabel>비밀번호</Stlabel>
-          <StInput type="password" name="password"></StInput>
+          <StInput
+            type="password"
+            name="password"
+            onChange={(e) => {
+              const { value } = e.target;
+              setPassword(value);
+            }}
+          ></StInput>
           <br />
           <StButtonBox>
             <StSignupBtn
               onClick={() => {
-                onClickSignup();
+                navigate(`/signup`);
               }}
             >
               회원가입
             </StSignupBtn>
-            <StSignupBtn onClick={onClickLogin}>로그인</StSignupBtn>
+            <StSignupBtn
+              onClick={(event) => {
+                onSubmit(event);
+              }}
+            >
+              로그인
+            </StSignupBtn>
           </StButtonBox>
         </StForm>
       </StcontainerBox>
