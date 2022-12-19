@@ -107,7 +107,10 @@ function Signup() {
           </Stdiv>
 
           {userid.length > 0 && (
-            <span className={`message ${isUserid ? "success" : "error"}`}>
+            <span
+              style={{ color: isUserid ? "blue" : "red" }}
+              className={`message ${isUserid ? "success" : "error"}`}
+            >
               {useridMessage}
             </span>
           )}
@@ -118,14 +121,20 @@ function Signup() {
             <StConfirmBtn>중복체크</StConfirmBtn>
           </Stdiv>
           {nickname.length > 1 && (
-            <span className={`message ${isNickName ? "success" : "error"}`}>
+            <span
+              style={{ color: isNickName ? "blue" : "red" }}
+              className={`message ${isNickName ? "success" : "error"}`}
+            >
               {nickNameMessage}
             </span>
           )}
           <Stlabel>비밀번호</Stlabel>
           <StInput type="password" onChange={onChangePassword}></StInput>
           {password.length > 0 && (
-            <span className={`message ${isPassword ? "success" : "error"}`}>
+            <span
+              style={{ color: isPassword ? "blue" : "red" }}
+              className={`message ${isPassword ? "success" : "error"}`}
+            >
               {passwordMessage}
             </span>
           )}
@@ -133,6 +142,7 @@ function Signup() {
           <StInput type="password" onChange={onChangePasswordConfirm}></StInput>
           {passwordConfirm.length > 0 && (
             <span
+              style={{ color: isPasswordConfirm ? "blue" : "red" }}
               className={`message ${isPasswordConfirm ? "success" : "error"}`}
             >
               {passwordConfirmMessage}
