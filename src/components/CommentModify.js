@@ -66,7 +66,7 @@ function CommentModify(props){
           :
           <CommentBtn 
           color = "var(--color2)"
-          onClick={()=>delHandler(props.id)}
+          onClick={()=>delHandler(list.id)}
           >삭제</CommentBtn>
         }
       </div>
