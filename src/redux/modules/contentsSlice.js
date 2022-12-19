@@ -16,7 +16,8 @@ export const __getContentsAll = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axiosDB.get("/api/posts");
-      return thunkAPI.fulfillWithValue(data.data);
+      console.log(data.data)
+      return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -30,7 +31,8 @@ export const __getContent = createAsyncThunk(
       const data = await axiosDB.get(`/api/posts/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      console.log(error.message)
+      return thunkAPI.rejectWithValue("error");
     }
   }
 );
@@ -42,7 +44,7 @@ export const __addContent = createAsyncThunk(
       await axiosDB.post(`/api/posts`, payload);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
-      return thunkAPI.rejectWithValue("error");
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

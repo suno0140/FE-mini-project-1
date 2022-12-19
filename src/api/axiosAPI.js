@@ -11,9 +11,9 @@ export const axiosDB = axios.create({
 //   headers: { "Access-Control-Allow-Origin": "*" },
 // });
 
-// baseURL.interceptors.request.use((config) => {
-//   if (config.headers === undefined) return;
-//   const token = localStorage.getItem("id");
-//   config.headers["Authorization"] = `${token}`;
-//   return config;
-// });
+axiosDB.interceptors.request.use((config) => {
+  if (config.headers === undefined) return;
+  const token = localStorage.getItem("id");
+  config.headers["Authorization"] = `${token}`;
+  return config;
+});
