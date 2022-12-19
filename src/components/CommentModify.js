@@ -5,11 +5,12 @@ import { __delComment , __patchComment, __getComments} from "../redux/modules/co
 
 import Button from "./Button";
 import styled from "styled-components";
+import { __getContent } from "../redux/modules/contentsSlice";
 
 function CommentModify(props){
+  const {id} = useParams();
   const list = props.content;
   const dispatch = useDispatch();
-  const {id} = useParams();
   const [comment, setComment] = useState(list.content);
   const [isEdit, setIsEdit] = useState(false)
   const delHandler = async (comment_id) => {
@@ -17,6 +18,7 @@ function CommentModify(props){
       return
     } else {
       await dispatch(__delComment(comment_id))
+      dispatch(__getContent(id))
     }
   }
   const onModifyHandler = async(e) =>{
@@ -31,8 +33,8 @@ function CommentModify(props){
       const commentId = list.id
       const content = {content : comment}
       await dispatch(__patchComment({content, commentId}));
+      dispatch(__getContent(id))
       setIsEdit(false)
-      dispatch(__getComments(id));
     }
   }
   return(
