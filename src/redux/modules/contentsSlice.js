@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import axios from "axios";
 
-export const DB = process.env.React_APP_DBSERVER;
+import { axiosDB } from "../../api/axiosAPI";
 
 const initialState = {
   contents: [],
@@ -11,11 +10,6 @@ const initialState = {
 
   content: {},
 };
-
-const axiosDB = axios.create({
-  baseURL: "http://localhost:3001",
-  headers: {},
-});
 
 export const __getContentsAll = createAsyncThunk(
   "contents/getAll",
@@ -67,6 +61,7 @@ export const __patchContent = createAsyncThunk(
   "content/patch",
   async (payload, thunkAPI) => {
     try {
+      console.log(payload)
       await axiosDB.patch(`/contents/${payload.id}`, payload.newContent);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {

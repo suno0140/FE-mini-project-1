@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit"
-import axios from "axios"
+
+import { axiosDB } from "../../api/axiosAPI"
 
 const initialState = {
   comments: [],
@@ -7,11 +8,6 @@ const initialState = {
   error: null,
   msg: "",
 }
-
-const axiosDB = axios.create({
-  baseURL: "http://localhost:3001",
-  headers: {}
-})
 
 export const __getComments = createAsyncThunk(
   "comments/getAll",
@@ -55,7 +51,7 @@ export const __patchComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log("payload", payload)
-      await axiosDB.patch(`/comments/${payload.id}`, payload.newContent)
+      await axiosDB.patch(`/comments/${payload.commentId}`, payload.content)
       return thunkAPI.fulfillWithValue("success")
     } catch (error) {
       return thunkAPI.rejectWithValue("error")
