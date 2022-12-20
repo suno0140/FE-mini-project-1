@@ -160,6 +160,7 @@ function Signup() {
           <Stlabel>아이디</Stlabel>
           <Stdiv>
             <StInput
+              placeholder=" 이메일형식으로 작성해주세요"
               onChange={onChangeUserId}
               type="email"
               disabled={isUseridCheck}
@@ -186,6 +187,7 @@ function Signup() {
           <Stlabel>닉네임</Stlabel>
           <Stdiv>
             <StInput
+              placeholder=" 닉네임을 입력해주세요"
               disabled={isNickNameCheck}
               onChange={onChangeNickName}
               type="text"
@@ -208,7 +210,11 @@ function Signup() {
             </span>
           )}
           <Stlabel>비밀번호</Stlabel>
-          <StInput type="password" onChange={onChangePassword}></StInput>
+          <StInput
+            placeholder=" 비밀번호를 입력해주세요"
+            type="password"
+            onChange={onChangePassword}
+          ></StInput>
           {password.length > 0 && (
             <span
               style={{ color: isPassword ? "blue" : "red" }}
@@ -218,7 +224,11 @@ function Signup() {
             </span>
           )}
           <Stlabel>비밀번호확인</Stlabel>
-          <StInput type="password" onChange={onChangePasswordConfirm}></StInput>
+          <StInput
+            placeholder=" 비밀번호를 입력해주세요"
+            type="password"
+            onChange={onChangePasswordConfirm}
+          ></StInput>
           {passwordConfirm.length > 0 && (
             <span
               style={{ color: isPasswordConfirm ? "blue" : "red" }}

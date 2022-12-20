@@ -6,23 +6,22 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { axiosDB } from "../api/axiosAPI";
 
-import { Cookies } from "react-cookie"
+import { Cookies } from "react-cookie";
 
-const cookies = new Cookies()
+const cookies = new Cookies();
 
-const setCookie = (id, value, option) =>{
-  return cookies.set(id, value, {...option})
-}
-export const getCookie = (id) =>{
-  return cookies.get(id)
-}
+const setCookie = (id, value, option) => {
+  return cookies.set(id, value, { ...option });
+};
+export const getCookie = (id) => {
+  return cookies.get(id);
+};
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userid, setUserId] = useState("");
   const [password, setPassword] = useState("");
-
 
   const postLogin = async (post) => {
     try {
@@ -32,10 +31,11 @@ function Login() {
       console.log(error);
     }
   };
-  const kakao = (e) =>{
+  const kakao = (e) => {
     e.preventDefault();
-    window.location.href='https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=http://localhost:3000&response_type=code';
-  }
+    window.location.href =
+      "https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=http://localhost:3000&response_type=code";
+  };
 
   // const onSubmit = (e) => {
   //   e.preventDefault();
@@ -45,17 +45,17 @@ function Login() {
   //   }).then((res) => {
   //     localStorage.setItem("id", res.headers.authorization);
   //   });
-    const onSubmit = (e) => {
-      e.preventDefault();
-      postLogin({
-        userid,
-        password,
-      }).then((res) => {
-        setCookie("id", res.headers.authorization,{
-          path: "/",
-          maxAge: 240,
-        });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    postLogin({
+      userid,
+      password,
+    }).then((res) => {
+      setCookie("id", res.headers.authorization, {
+        path: "/",
+        maxAge: 240,
       });
+    });
 
     // .catch((error) => useSweet(1000, "error", error.response.data.msg));
   };
@@ -100,7 +100,10 @@ function Login() {
               회원가입
             </StSignupBtn>
           </StButtonBox>
-          <button id="login-kakao-btn" onClick={(event)=>kakao(event)}> 카카오로 로그인하기 </button>
+          <button id="login-kakao-btn" onClick={(event) => kakao(event)}>
+            {" "}
+            카카오로 로그인하기{" "}
+          </button>
         </StForm>
       </StcontainerBox>
     </>
