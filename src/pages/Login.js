@@ -59,20 +59,26 @@ function Login() {
           <br />
           <StButtonBox>
             <StSignupBtn
-              onClick={() => {
-                navigate(`/signup`);
-              }}
-            >
-              회원가입
-            </StSignupBtn>
-            <StSignupBtn
               onClick={(event) => {
                 onSubmit(event);
               }}
             >
               로그인
             </StSignupBtn>
+            <StSignupBtn
+              onClick={() => {
+                navigate(`/signup`);
+              }}
+            >
+              회원가입
+            </StSignupBtn>
           </StButtonBox>
+          <StkakaoBtn
+            id="login-kakao-btn"
+            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=/리다이렉트 설정/&response_type=code'"
+          >
+            카카오로그인
+          </StkakaoBtn>
         </StForm>
       </StcontainerBox>
     </>
@@ -122,4 +128,12 @@ const StSignupBtn = styled(Button)`
 `;
 const StButtonBox = styled.div`
   margin: 20px 0px 0 60px;
+`;
+
+const StkakaoBtn = styled(Button)`
+  margin: 20px 88px 20px 69px;
+  padding: 10px 20px 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -26,10 +26,13 @@ function Signup() {
   const [isNickName, setIsNickName] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [isUseridCheck, setIsUseridCheck] = useState(false);
+  const [isNickNameCheck, setIsNickNameCheck] = useState(false);
+
+  const useridRegex =
+    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
   const onChangeUserId = useCallback((e) => {
-    const useridRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     const useridCurrent = e.target.value;
     setUserid(useridCurrent);
 
@@ -86,13 +89,15 @@ function Signup() {
     [password]
   );
 
-  const isUseridCheck = false;
-  const isNickNameCheck = false;
-
   const idCheck = async (post) => {
     try {
       const data = await axiosDB.post(`api/members/check`, post);
-      return data;
+      if (data.data.statusCode === 200) {
+        alert("사용 가능한 아이디 입니다.");
+        setIsUseridCheck(true);
+      } else {
+        alert("중복된 아이디 입니다.");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -100,21 +105,28 @@ function Signup() {
 
   const onIdCheck = (e) => {
     e.preventDefault();
+    if (userid.length === 0) {
+      alert("아이디를 입력해주세요.");
+      return;
+    } else if (!useridRegex.test(userid)) {
+      alert("올바른 이메일형식이 아닙니다.");
+      return;
+    }
     idCheck({
       userid,
-    }).then((check) => {
-      if (check === true) {
-        alert("사용 가능한 아이디 입니다.");
-        isUseridCheck = !isUseridCheck;
-      } else {
-        alert("중복된 아이디 입니다.");
-      }
     });
   };
 
   const nickCheck = async (post) => {
     try {
+      console.log(post);
       const data = await axiosDB.post(`api/members/check`, post);
+      if (data.data.statusCode === 200) {
+        alert("사용 가능한 닉네임 입니다.");
+        setIsNickNameCheck(true);
+      } else {
+        alert("중복된 닉네임 입니다.");
+      }
       return data;
     } catch (error) {
       console.log(error);
@@ -123,16 +135,11 @@ function Signup() {
 
   const onNickCheck = (e) => {
     e.preventDefault();
-    nickCheck({
-      nickname,
-    }).then((check) => {
-      if (check === true) {
-        alert("사용 가능한 닉네임 입니다.");
-        isNickNameCheck = !isNickNameCheck;
-      } else {
-        alert("중복된 닉네임 입니다.");
-      }
-    });
+    if (nickname.length === 0) {
+      alert("닉네임을 입력해주세요.");
+      return;
+    }
+    nickCheck({ userid: "", nickname });
   };
 
   const onClickLogin = () => {
@@ -158,8 +165,9 @@ function Signup() {
               disabled={isUseridCheck}
             ></StInput>
             <StConfirmBtn
-              onClick={() => {
-                onIdCheck();
+              type="button"
+              onClick={(event) => {
+                onIdCheck(event);
               }}
             >
               중복체크
@@ -184,8 +192,8 @@ function Signup() {
             ></StInput>
             <StConfirmBtn
               type="button"
-              onClick={() => {
-                onNickCheck();
+              onClick={(event) => {
+                onNickCheck(event);
               }}
             >
               중복체크
@@ -231,7 +239,14 @@ function Signup() {
             <StSignupBtn
               type="submit"
               disabled={
-                !(isNickName && isPassword && isUserid && isPasswordConfirm)
+                !(
+                  isNickName &&
+                  isPassword &&
+                  isUserid &&
+                  isPasswordConfirm &&
+                  isUseridCheck &&
+                  isNickNameCheck
+                )
               }
               onClick={onClickSignup}
             >
