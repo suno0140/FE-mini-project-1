@@ -6,11 +6,21 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { axiosDB } from "../api/axiosAPI";
 
+import {Cookies} from "react-cookie"
+
 function Login() {
+  // const cookies = new Cookies()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userid, setUserId] = useState("");
   const [password, setPassword] = useState("");
+
+  // const setCookies = (id, value, option) =>{
+  //   return cookies.set(id, value, {...option})
+  // }
+  // const getCookies = (id) =>{
+  //   return cookies.get(id)
+  // }
 
   const postLogin = async (post) => {
     try {
