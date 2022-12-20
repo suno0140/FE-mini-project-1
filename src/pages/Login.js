@@ -6,21 +6,23 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { axiosDB } from "../api/axiosAPI";
 
-import {Cookies} from "react-cookie"
+import { Cookies } from "react-cookie"
+
+const cookies = new Cookies()
+
+const setCookie = (id, value, option) =>{
+  return cookies.set(id, value, {...option})
+}
+export const getCookie = (id) =>{
+  return cookies.get(id)
+}
 
 function Login() {
-  // const cookies = new Cookies()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userid, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
-  // const setCookies = (id, value, option) =>{
-  //   return cookies.set(id, value, {...option})
-  // }
-  // const getCookies = (id) =>{
-  //   return cookies.get(id)
-  // }
 
   const postLogin = async (post) => {
     try {
@@ -31,14 +33,25 @@ function Login() {
     }
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    postLogin({
-      userid,
-      password,
-    }).then((res) => {
-      localStorage.setItem("id", res.headers.authorization);
-    });
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   postLogin({
+  //     userid,
+  //     password,
+  //   }).then((res) => {
+  //     localStorage.setItem("id", res.headers.authorization);
+  //   });
+    const onSubmit = (e) => {
+      e.preventDefault();
+      postLogin({
+        userid,
+        password,
+      }).then((res) => {
+        setCookie("id", res.headers.authorization,{
+          path: "/",
+          maxAge: 240,
+        });
+      });
 
     // .catch((error) => useSweet(1000, "error", error.response.data.msg));
   };

@@ -7,9 +7,13 @@ const initialState = {
   isLoading: false,
   error: null,
   msg: "",
-
   content: {},
 };
+
+// const errorHandler = (errorStatus) =>{
+//   if(errorStatus === 401) 
+//     alert("로그인 정보가 유효하지 않습니다.")
+// }
 
 export const __getContentsAll = createAsyncThunk(
   "contents/getAll",
@@ -18,6 +22,7 @@ export const __getContentsAll = createAsyncThunk(
       const data = await axiosDB.get("/api/posts");
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
+      console.log(error.response.status)
       return thunkAPI.rejectWithValue(error);
     }
   }

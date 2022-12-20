@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { getCookie } from "../pages/Login";
 export const DB = process.env.REACT_APP_SERVER;
 
 export const axiosDB = axios.create({
@@ -7,9 +7,15 @@ export const axiosDB = axios.create({
   headers: { "Access-Control-Allow-Origin": "*" },
 });
 
+// axiosDB.interceptors.request.use((config) => {
+//   if (config.headers === undefined) return;
+//   const token = localStorage.getItem("id");
+//   config.headers["Authorization"] = `${token}`;
+//   return config;
+// });
 axiosDB.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
-  const token = localStorage.getItem("id");
+  const token = getCookie("id");
   config.headers["Authorization"] = `${token}`;
   return config;
 });
