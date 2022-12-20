@@ -25,8 +25,7 @@ export const __addComment = createAsyncThunk(
   "comment/add",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
-      await axiosDB.post(`/api/posts/{id}/comments`, payload);
+      await axiosDB.post(`/api/posts/${payload.contentId}/comments`, {content : payload.content});
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
@@ -38,7 +37,7 @@ export const __delComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      await axiosDB.delete(`/api/posts/comments/{id}/${payload}`);
+      await axiosDB.delete(`/api/posts/comments/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue("error");
@@ -50,9 +49,8 @@ export const __patchComment = createAsyncThunk(
   "comment/patch",
   async (payload, thunkAPI) => {
     try {
-      console.log("payload", payload);
-      await axiosDB.patch(
-        `/api/posts/comments/{id}/${payload.commentId}`,
+      await axiosDB.put(
+        `/api/posts/comments/${payload.commentId}`,
         payload.content
       );
       return thunkAPI.fulfillWithValue("success");

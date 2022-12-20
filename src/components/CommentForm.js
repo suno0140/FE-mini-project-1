@@ -14,7 +14,7 @@ function CommentForm() {
   
   const {id} = useParams();
   const contentId = id
-
+  console.log(id)
   const onAddHandler = async (e) => {
     e.preventDefault()
     if (content.trim() === "") {
@@ -25,7 +25,7 @@ function CommentForm() {
       return
     } else {
       await dispatch(__addComment({content, contentId}))
-      dispatch(__getComments(id))
+      dispatch(__getContent(id))
       setContent("")
     }
   }

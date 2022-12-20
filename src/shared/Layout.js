@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Button from "../components/Button";
 import {ReactComponent as icon } from "../img/TS_icon_2.svg"
 
+console.log(localStorage.id != null)
+
 function Header() {
   const navigate = useNavigate();
   return (
