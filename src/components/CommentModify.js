@@ -7,12 +7,29 @@ import Button from "./Button";
 import styled from "styled-components";
 import { __getContent } from "../redux/modules/contentsSlice";
 
+// /api/posts/{postid}/membercheck
+
+import { axiosDB } from "../api/axiosAPI";
+
+
 function CommentModify(props){
   const {id} = useParams();
   const list = props.content;
   const dispatch = useDispatch();
   const [comment, setComment] = useState(list.content);
   const [isEdit, setIsEdit] = useState(false)
+
+  const checkHandler = async(commentsid) =>{
+    try{
+      const data = await axiosDB.get(`/api/posts/comments/${commentsid}/membercheck`);
+      if(data.data.statusCode === 200) setIsEdit(true)
+      else if(data.data.statusCode=== 400) alert(data.data.msg)
+      else alert('error')
+    }catch(error){
+      alert(error.message)
+    }
+  }
+
   const delHandler = async (comment_id) => {
     if (!window.confirm("삭제 하시겠습니까?")) {
       return
@@ -56,7 +73,7 @@ function CommentModify(props){
           :
           <CommentBtn
           color = "var(--color2)"
-          onClick={()=> {setIsEdit(true)}}
+          onClick={()=> {checkHandler(list.id)}}
           >수정</CommentBtn>
         }
         

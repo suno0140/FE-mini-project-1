@@ -10,8 +10,8 @@ function PostForm() {
   const { id } = useParams();
   const { content } = useSelector((state) => state.contents);
   const initialContent = {
-    title: content.title,
-    content: content.content,
+    title: "",
+    content: ""
   };
 
   const [isClick, setClick] = useState(false);

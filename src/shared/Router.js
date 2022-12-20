@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Layout from "./Layout";
 import NotFound from "../pages/NotFound";
 import Modify from "../pages/Modify";
+import KakaoLogin from "../pages/KakaoLogin";
 
 
 function Router() {
@@ -21,6 +22,7 @@ function Router() {
             <Route path="/modify/:id" element={<Modify />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/kakao" element={<KakaoLogin />} />
 
             <Route path="*" element={<NotFound />} />
 
