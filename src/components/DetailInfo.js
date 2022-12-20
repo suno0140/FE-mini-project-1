@@ -7,6 +7,8 @@ import styled from "styled-components";
 import CommentForm from "./CommentForm";
 import CommentModify from "./CommentModify";
 
+import { axiosDB } from "../api/axiosAPI";
+
 function DetailInfo() {
   const [isClick, setClick] = useState(false)
   const dispatch = useDispatch();
@@ -29,6 +31,17 @@ function DetailInfo() {
     }
   }, [msg, isClick])
 
+  const checkHandler = async(postid) =>{
+    try{
+      const data = await axiosDB.get(`/api/posts/${postid}/membercheck`);
+      if(data.data.statusCode === 200) navigate(`../modify/${postid}`)
+      else if(data.data.statusCode === 400) alert(data.data.msg)
+      else alert("Error")
+    }catch(error){
+      alert(error.message)
+    }
+  }
+
   const delHandler = async () => {
     if (!window.confirm("삭제 하시겠습니까?")) {
       return
@@ -48,7 +61,7 @@ function DetailInfo() {
         <div>{content.createdAt}</div>
       </ConMin>
       <BtnBox>
-        <ConBtn onClick={() => navigate(`../modify/${content.id}`)}>수정</ConBtn>
+        <ConBtn onClick={() => checkHandler(content.id)}>수정</ConBtn>
         <ConBtn onClick={delHandler}>삭제</ConBtn>
       </BtnBox>
     </ContentBox>
