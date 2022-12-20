@@ -5,10 +5,27 @@ import Button from "../components/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { axiosDB } from "../api/axiosAPI";
-
 import { Cookies } from "react-cookie";
+import { encrypt } from "../components/LoginForm/Encrypt";
 
 const cookies = new Cookies();
+
+// const secretKey = process.env.REACT_APP_Key; // 32자리 비밀키
+// const iv = "abcdefghijklmnop"; // 16자리 iv
+
+// const encrypt = (text) => {
+//   const cipher = CryptoJS.AES.encrypt(
+//     text,
+//     CryptoJS.enc.Utf8.parse(secretKey),
+//     {
+//       iv: CryptoJS.enc.Utf8.parse(iv),
+//       padding: CryptoJS.pad.Pkcs7,
+//       mode: CryptoJS.mode.CBC,
+//     }
+//   );
+
+//   return cipher.toString();
+// };
 
 const setCookie = (id, value, option) => {
   return cookies.set(id, value, { ...option });
@@ -25,8 +42,14 @@ function Login() {
 
   const postLogin = async (post) => {
     try {
-      const data = await axiosDB.post("/api/members/login", post);
-      return data;
+      const password = encrypt(post.password);
+      const userInfo = { userid, password };
+      const data = await axiosDB.post("/api/members/login", userInfo);
+      if (data.data.statusCode === 201) {
+        return data;
+      } else {
+        alert("아이디, 비밀번호를 잘못입력하셨습니다.");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -47,14 +70,24 @@ function Login() {
   //   });
   const onSubmit = (e) => {
     e.preventDefault();
+    if (userid === "" || password === "") {
+      alert("아이디, 비밀번호를 확인해주세요.");
+      return;
+    } else {
+    }
     postLogin({
       userid,
       password,
     }).then((res) => {
-      setCookie("id", res.headers.authorization, {
-        path: "/",
-        maxAge: 240,
-      });
+      if (res == undefined) {
+        navigate(`/login`);
+      } else {
+        navigate(`/`);
+        setCookie("id", res.headers.authorization, {
+          path: "/",
+          maxAge: 240,
+        });
+      }
     });
 
     // .catch((error) => useSweet(1000, "error", error.response.data.msg));
