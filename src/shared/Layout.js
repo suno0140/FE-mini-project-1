@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/Button";
 import {ReactComponent as icon } from "../img/TS_icon_2.svg"
-
-console.log(localStorage.id != null)
+import { getCookie } from "../pages/Login";
+import {useCookies} from "react-cookie"
 
 function Header() {
+  const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
+  const token = getCookie("id");
+
+  const logOut = () =>{
+    if(!window.confirm("로그아웃 하겠습니까??")){
+      return
+    } else {
+      removeCookie('id',{path:'/'})
+      navigate("/")
+    }
+  }
+
+  let leftBtn, rightBtn ;
+  if(token){
+    leftBtn = <HeadBtn onClick={logOut}>로그아웃</HeadBtn>
+    rightBtn = <HeadBtn onClick={()=>navigate("posting")}>게시글작성</HeadBtn>
+  } else {
+    leftBtn = <HeadBtn onClick={()=>navigate("login")}>로그인</HeadBtn>
+    rightBtn = <HeadBtn onClick={()=>navigate("signup")}>화원가입</HeadBtn>
+  }
+
   return (
     <HeadLine>
       <TestLink to="/"><IconImg /></TestLink>
       <BtnBox>
-        <HeadBtn onClick={()=>navigate("login")}>로그인</HeadBtn>
-        <HeadBtn onClick={()=>navigate("signup")}>화원 가입</HeadBtn>
+        {leftBtn}{rightBtn}
       </BtnBox>
     </HeadLine>
   )

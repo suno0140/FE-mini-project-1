@@ -14,7 +14,6 @@ function CommentForm() {
   
   const {id} = useParams();
   const contentId = id
-  console.log(id)
   const onAddHandler = async (e) => {
     e.preventDefault()
     if (content.trim() === "") {
