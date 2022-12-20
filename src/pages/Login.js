@@ -32,6 +32,10 @@ function Login() {
       console.log(error);
     }
   };
+  const kakao = (e) =>{
+    e.preventDefault();
+    window.location.href='https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=http://localhost:3000&response_type=code';
+  }
 
   // const onSubmit = (e) => {
   //   e.preventDefault();
@@ -96,12 +100,7 @@ function Login() {
               회원가입
             </StSignupBtn>
           </StButtonBox>
-          <StkakaoBtn
-            id="login-kakao-btn"
-            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=/리다이렉트 설정/&response_type=code'"
-          >
-            카카오로그인
-          </StkakaoBtn>
+          <button id="login-kakao-btn" onClick={(event)=>kakao(event)}> 카카오로 로그인하기 </button>
         </StForm>
       </StcontainerBox>
     </>
