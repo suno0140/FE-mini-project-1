@@ -4,12 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { __delContent, __getContent } from "../redux/modules/contentsSlice";
 
 import styled from "styled-components";
+import CommentForm from "./CommentForm";
+import CommentModify from "./CommentModify";
 
 function DetailInfo() {
   const [isClick, setClick] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const id = useParams();
+  const {id} = useParams();
   const { isLoading, error, msg, content } = useSelector((state) => state.contents);
 
   useEffect(() => {
@@ -32,10 +34,12 @@ function DetailInfo() {
       return
     } else {
       await dispatch(__delContent(id))
+      navigate("/")
     }
   }
 
   return (
+  <div>
     <ContentBox>
       <ConTitle>{content.title}</ConTitle>
       <ConBody>{content.content}</ConBody>
@@ -48,6 +52,22 @@ function DetailInfo() {
         <ConBtn onClick={delHandler}>삭제</ConBtn>
       </BtnBox>
     </ContentBox>
+    <CommentForm />
+    <CommentBox>
+      CommentsList
+      {content?.commentList?.map((v) => {
+        return (
+          <CommentModify
+            key = {v.id}
+            content = {v}
+            >
+          </CommentModify>
+        )
+      })}
+    </CommentBox>
+
+  </div>
+
   )
 }
 
@@ -116,4 +136,15 @@ const ConBtn = styled.button`
     color: Black;
     border: 3px solid var(--color2);
   }
+`
+
+const CommentBox = styled.div`
+  border: 4px solid var(--color2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  gap: 20px;
 `
