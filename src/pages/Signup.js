@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { __addSignup } from "../redux/modules/signupSlice";
 import { useCallback } from "react";
+import { axiosDB } from "../api/axiosAPI";
 
 function Signup() {
   const navigate = useNavigate();
@@ -85,6 +86,55 @@ function Signup() {
     [password]
   );
 
+  const isUseridCheck = false;
+  const isNickNameCheck = false;
+
+  const idCheck = async (post) => {
+    try {
+      const data = await axiosDB.post(`api/members/check`, post);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onIdCheck = (e) => {
+    e.preventDefault();
+    idCheck({
+      userid,
+    }).then((check) => {
+      if (check === true) {
+        alert("사용 가능한 아이디 입니다.");
+        isUseridCheck = !isUseridCheck;
+      } else {
+        alert("중복된 아이디 입니다.");
+      }
+    });
+  };
+
+  const nickCheck = async (post) => {
+    try {
+      const data = await axiosDB.post(`api/members/check`, post);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onNickCheck = (e) => {
+    e.preventDefault();
+    nickCheck({
+      nickname,
+    }).then((check) => {
+      if (check === true) {
+        alert("사용 가능한 닉네임 입니다.");
+        isNickNameCheck = !isNickNameCheck;
+      } else {
+        alert("중복된 닉네임 입니다.");
+      }
+    });
+  };
+
   const onClickLogin = () => {
     navigate(`/login`);
   };
@@ -102,8 +152,18 @@ function Signup() {
           <StTitle>회원가입</StTitle>
           <Stlabel>아이디</Stlabel>
           <Stdiv>
-            <StInput onChange={onChangeUserId} type="email"></StInput>
-            <StConfirmBtn>중복체크</StConfirmBtn>
+            <StInput
+              onChange={onChangeUserId}
+              type="email"
+              disabled={isUseridCheck}
+            ></StInput>
+            <StConfirmBtn
+              onClick={() => {
+                onIdCheck();
+              }}
+            >
+              중복체크
+            </StConfirmBtn>
           </Stdiv>
 
           {userid.length > 0 && (
@@ -117,8 +177,19 @@ function Signup() {
 
           <Stlabel>닉네임</Stlabel>
           <Stdiv>
-            <StInput onChange={onChangeNickName} type="text"></StInput>
-            <StConfirmBtn>중복체크</StConfirmBtn>
+            <StInput
+              disabled={isNickNameCheck}
+              onChange={onChangeNickName}
+              type="text"
+            ></StInput>
+            <StConfirmBtn
+              type="button"
+              onClick={() => {
+                onNickCheck();
+              }}
+            >
+              중복체크
+            </StConfirmBtn>
           </Stdiv>
           {nickname.length > 1 && (
             <span
