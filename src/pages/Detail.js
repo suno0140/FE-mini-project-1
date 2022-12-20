@@ -3,7 +3,7 @@ import { __getContent } from "../redux/modules/contentsSlice";
 import DetailInfo from "../components/DetailInfo";
 
 function Detail() {
-
+  
   return (
     <div>
       <DetailInfo />
