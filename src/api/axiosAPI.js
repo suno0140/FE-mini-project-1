@@ -6,10 +6,6 @@ export const axiosDB = axios.create({
   baseURL: DB,
   headers: { "Access-Control-Allow-Origin": "*" },
 });
-// export const baseURL = axios.create({
-//   baseURL: DB,
-//   headers: { "Access-Control-Allow-Origin": "*" },
-// });
 
 axiosDB.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
@@ -17,3 +13,4 @@ axiosDB.interceptors.request.use((config) => {
   config.headers["Authorization"] = `${token}`;
   return config;
 });
+

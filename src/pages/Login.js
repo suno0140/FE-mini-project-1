@@ -5,8 +5,6 @@ import Button from "../components/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { axiosDB } from "../api/axiosAPI";
-// import { postLogin } from "../components/LoginForm/api/postLogin";
-// import { useSweet } from "../components/LoginForm/utils/useSweet";
 
 function Login() {
   const navigate = useNavigate();
@@ -30,23 +28,11 @@ function Login() {
       password,
     }).then((res) => {
       localStorage.setItem("id", res.headers.authorization);
-      // navigate("/");
     });
 
     // .catch((error) => useSweet(1000, "error", error.response.data.msg));
   };
 
-  // const onClickLogin = (e) => {
-  //   e.preventDefault();
-  //   console.log(userid);
-  //   console.log(password);
-  //   if (userid.trim() === "" || password.trim() === "") {
-  //     alert("아이디와 비밀번호를 입력해주세요");
-  //     return;
-  //   }
-  //   const Login = { userid: userid, password: password };
-  //   dispatch(__loginRequest(Login));
-  // };
   return (
     <>
       <StcontainerBox>
