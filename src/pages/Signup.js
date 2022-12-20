@@ -29,6 +29,20 @@ function Signup() {
   const [isUseridCheck, setIsUseridCheck] = useState(false);
   const [isNickNameCheck, setIsNickNameCheck] = useState(false);
 
+//   const secretKey = process.env.REACT_APP_Key; // 32자리 비밀키
+// const iv = "abcdefghijklmnop"; // 16자리 iv
+
+// const encrypt = (text: string) => {
+//   const cipher = CryptoJS.AES.encrypt(
+//     text,
+//     CryptoJS.enc.Utf8.parse(secretKey),
+//     {
+//       iv: CryptoJS.enc.Utf8.parse(iv),
+//       padding: CryptoJS.pad.Pkcs7,
+//       mode: CryptoJS.mode.CBC,
+//     }
+//   );
+
   const useridRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
