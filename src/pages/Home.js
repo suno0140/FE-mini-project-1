@@ -6,13 +6,11 @@ import { axiosDB } from "../api/axiosAPI";
 
 import axios from "axios";
 import {DB} from "../api/axiosAPI"
-console.log(DB)
 
 function Home() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
 // /api/members/kakao
-
 
   const kakaoLogin = async() =>{
     console.log(code)

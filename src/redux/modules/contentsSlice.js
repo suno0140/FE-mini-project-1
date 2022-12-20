@@ -10,11 +10,6 @@ const initialState = {
   content: {},
 };
 
-// const errorHandler = (errorStatus) =>{
-//   if(errorStatus === 401) 
-//     alert("로그인 정보가 유효하지 않습니다.")
-// }
-
 export const __getContentsAll = createAsyncThunk(
   "contents/getAll",
   async (payload, thunkAPI) => {
@@ -22,7 +17,6 @@ export const __getContentsAll = createAsyncThunk(
       const data = await axiosDB.get("/api/posts");
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
-      console.log(error.response.status)
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -32,12 +26,9 @@ export const __getContent = createAsyncThunk(
   "content/get",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload)
       const data = await axiosDB.get(`/api/posts/${payload}`);
-      console.log(data.data.data)
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
-      console.log(error.message)
       return thunkAPI.rejectWithValue("error");
     }
   }
@@ -69,7 +60,6 @@ export const __patchContent = createAsyncThunk(
   "content/patch",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
       await axiosDB.put(`/api/posts/${payload.id}`, payload.newContent);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
