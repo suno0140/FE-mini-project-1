@@ -5,6 +5,7 @@ const StBtn = styled.button`
   border: none;
   background-color: var(--color2);
   color: white;
+  border-radius: 5px;
   &:hover {
     background-color: white;
     color: Black;
