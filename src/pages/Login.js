@@ -100,10 +100,10 @@ function Login() {
               회원가입
             </StSignupBtn>
           </StButtonBox>
-          <button id="login-kakao-btn" onClick={(event) => kakao(event)}>
+          <StkakaoBtn id="login-kakao-btn" onClick={(event) => kakao(event)}>
             {" "}
             카카오로 로그인하기{" "}
-          </button>
+          </StkakaoBtn>
         </StForm>
       </StcontainerBox>
     </>
@@ -156,8 +156,8 @@ const StButtonBox = styled.div`
 `;
 
 const StkakaoBtn = styled(Button)`
-  margin: 20px 88px 20px 69px;
-  padding: 10px 20px 10px 10px;
+  margin: 20px 89px 20px 68px;
+  padding: 10px 10px 10px 10px;
   display: flex;
   align-items: center;
   justify-content: center;

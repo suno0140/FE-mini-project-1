@@ -211,7 +211,7 @@ function Signup() {
           )}
           <Stlabel>비밀번호</Stlabel>
           <StInput
-            placeholder=" 비밀번호를 입력해주세요"
+            placeholder=" 숫자+영문자+특수문자  8자리이상"
             type="password"
             onChange={onChangePassword}
           ></StInput>
@@ -225,7 +225,7 @@ function Signup() {
           )}
           <Stlabel>비밀번호확인</Stlabel>
           <StInput
-            placeholder=" 비밀번호를 입력해주세요"
+            placeholder=" 숫자+영문자+특수문자  8자리이상"
             type="password"
             onChange={onChangePasswordConfirm}
           ></StInput>
@@ -322,3 +322,4 @@ const StConfirmBtn = styled(Button)`
   height: 30px;
   margin: 11px;
 `;
+
