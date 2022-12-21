@@ -37,7 +37,7 @@ function CommentForm() {
           required
           type="text"
           value={content}
-          placeholder="댓글 입력"
+          placeholder=" 댓글 입력"
           onChange={(event) => setContent(event.target.value)}
         ></InputTitle>
         <SubBtn onSubmit={onAddHandler}>추가</SubBtn>
@@ -49,8 +49,8 @@ function CommentForm() {
 export default CommentForm;
 
 const Box = styled.div`
-  border: 2px solid black;
-  padding: 20px;
+  border-bottom: 3px solid var(--color3);
+  padding: 20px 0 60px 0;
   margin: 20px auto;
   width: 800px;
 `;
@@ -58,12 +58,11 @@ const Box = styled.div`
 const FormBox = styled.form`
   display: flex;
   justify-content: center;
-  margin: 10px;
+  margin-top: 10px;
 `;
 const InputTitle = styled.input`
   border: none;
-  padding: 5px;
-  border-bottom: 2px solid var(--color2);
+  border-radius: 5px;
   font-size: medium;
   flex: 1;
 `;
@@ -71,5 +70,5 @@ const InputTitle = styled.input`
 const SubBtn = styled(Button)`
   height: 40px;
   width: 100px;
-  margin: auto;
+  margin-left: 15px;
 `;

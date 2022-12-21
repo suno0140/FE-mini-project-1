@@ -6,7 +6,6 @@ import { axiosDB } from "../../api/axiosAPI";
 import { encrypt } from "./Encrypt";
 import { setCookies, getCookies } from "../../api/cookieControler";
 
-
 function LoginForm() {
   const navigate = useNavigate();
   const [userid, setUserId] = useState("");
@@ -30,7 +29,7 @@ function LoginForm() {
   const kakao = (e) => {
     e.preventDefault();
     window.location.href =
-      "https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=http://localhost:3000&response_type=code";
+      "https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=http://4team-troubleshooter.s3-website.ap-northeast-2.amazonaws.com&response_type=code";
   };
 
   const onSubmit = (e) => {
@@ -95,9 +94,21 @@ function LoginForm() {
             회원가입
           </StSignupBtn>
         </StButtonBox>
-        <StkakaoBtn id="login-kakao-btn" onClick={(event) => kakao(event)}>
+        {/* <StkakaoBtn id="login-kakao-btn" onClick={(event) => kakao(event)}>
           {" "}
-          카카오로 로그인하기{" "}
+          카카오로 로그인{" "}
+        </StkakaoBtn> */}
+        <StkakaoBtn>
+          <a
+            id="kakao-login-btn"
+            href="https://kauth.kakao.com/oauth/authorize?client_id=00a53b1769c1cc0a1142657ec7e2b793&redirect_uri=http://4team-troubleshooter.s3-website.ap-northeast-2.amazonaws.com&response_type=code"
+          >
+            <img
+              src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+              width="160"
+              alt="카카오 로그인 버튼"
+            />
+          </a>
         </StkakaoBtn>
       </StForm>
     </StcontainerBox>
@@ -107,10 +118,10 @@ function LoginForm() {
 export default LoginForm;
 
 const StcontainerBox = styled.div`
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 1100px;
 `;
 const StForm = styled.form`
   display: flex;
@@ -118,6 +129,7 @@ const StForm = styled.form`
   padding: 100px 100px 130px 100px;
   border: 2px solid var(--color3);
   border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 const StTitle = styled.div`
   font-size: 50px;
@@ -126,12 +138,12 @@ const StTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color3);
+  color: white;
 `;
 
 const Stlabel = styled.label`
   margin: 15px 0 10px 0;
-  color: var(--color3);
+  color: white;
 `;
 
 const StInput = styled.input`
@@ -149,7 +161,7 @@ const StButtonBox = styled.div`
   margin: 20px 0px 0 60px;
 `;
 
-const StkakaoBtn = styled(Button)`
+const StkakaoBtn = styled.div`
   margin: 20px 89px 20px 68px;
   padding: 10px 10px 10px 10px;
   display: flex;

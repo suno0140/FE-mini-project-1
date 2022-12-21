@@ -7,7 +7,6 @@ import { DB } from "../api/axiosAPI";
 
 import { setCookies } from "../api/cookieControler";
 
-
 function Home() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
@@ -22,13 +21,12 @@ function Home() {
         path: "/",
         maxAge: 240,
       });
-      navigate("/")
+      navigate("/");
       return data;
     } catch (error) {
       console.log(error);
     }
   };
-
 
   useEffect(() => {
     if (code) {

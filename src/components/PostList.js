@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { __getContentsAll, setInitialError, __searchContent } from "../redux/modules/contentsSlice";
+import {
+  __getContentsAll,
+  __getGoodContents,
+  setInitialError,
+  __searchContent,
+} from "../redux/modules/contentsSlice";
 import Button from "./Button";
 import { dateCalc } from "./dateCalc";
 
@@ -14,63 +19,86 @@ function PostList() {
   const navigate = useNavigate();
   const { isLoading, error, contents } = useSelector((state) => state.contents);
   const [keyword, setKeyword] = useState("");
-  console.log(contents)
+  console.log(contents);
   useEffect(() => {
-    dispatch(setInitialError())
-    dispatch(__getContentsAll())
-  }, [dispatch])
+    dispatch(setInitialError());
+    dispatch(__getContentsAll());
+  }, [dispatch]);
   const toDetail = (id) => {
-    navigate(`detail/${id}`)
-  }
-  
+    navigate(`detail/${id}`);
+  };
 
   const searchHandler = (e) => {
     e.preventDefault();
     if (keyword.trim() === "") {
-      dispatch(__getContentsAll())
+      dispatch(__getContentsAll());
       return;
     }
-    dispatch(__searchContent(keyword))
-  }
+    dispatch(__searchContent(keyword));
+  };
+
+  // const onGoodContentsHandler = () => {
+  //   dispatch(__getGoodContents());
+  // };
 
   return (
     <div>
       <HomeHead>
-        <form onSubmit={(event) => { searchHandler(event) }}>
+        <form
+          onSubmit={(event) => {
+            searchHandler(event);
+          }}
+        >
           <InputKeyword
             type="text"
             placeholder="검색"
             value={keyword}
-            onChange={(event) => { setKeyword(event.target.value) }}>
-          </InputKeyword>
+            onChange={(event) => {
+              setKeyword(event.target.value);
+            }}
+          ></InputKeyword>
           <SortBtn>검색</SortBtn>
         </form>
-        <SortBox>
-          <SortBtn>최신순</SortBtn>
-          <SortBtn>추천순</SortBtn>
-        </SortBox>
       </HomeHead>
-
-
-
+      <SortBox>
+        <SortBtn
+          onClick={() => {
+            dispatch(__getContentsAll());
+          }}
+        >
+          최신순
+        </SortBtn>
+        <SortBtn
+          onClick={() => {
+            dispatch(__getGoodContents());
+          }}
+        >
+          추천순
+        </SortBtn>
+      </SortBox>
       <ListBox>
         {contents?.map((v) => {
           return (
-            <List key={v.id} onClick={() => { toDetail(v.id) }}>
+            <List
+              key={v.id}
+              onClick={() => {
+                toDetail(v.id);
+              }}
+            >
               <ConTitle>{v.title}</ConTitle>
               <ConBody>{v.content}</ConBody>
-              <ConAuthor>{v.nickname}</ConAuthor>
+              <ConAuthor>작성자 / {v.nickname}</ConAuthor>
               <ConHeart>
                 <FontAwesomeIcon icon={faHeart} />
                 {v.recommendCount}
               </ConHeart>
               <ConDate>{dateCalc(v.createdAt)}</ConDate>
             </List>
-          )
+          );
         })}
       </ListBox>
     </div>
-  )
+  );
 }
 
 export default PostList;
@@ -81,23 +109,24 @@ const ListBox = styled.div`
   margin: 20px auto;
   flex-direction: column;
   gap: 50px;
-`
+`;
 
 const List = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: row;
   border-radius: 5px;
-  border: none;
-  padding: 20px;
-  height: 20px;
+  border: 1px solid var(--color3);
+  margin-top: 20px;
+  padding: 30px;
+  height: 45px;
   background-color: white;
-  gap : 10px
-`
-
+  gap: 10px;
+`;
 
 const ConTitle = styled.span`
   flex: 2;
-  font-size : large;
+  font-size: large;
 `;
 
 const ConBody = styled.span`
@@ -105,7 +134,7 @@ const ConBody = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`
+`;
 
 const ConAuthor = styled.span`
   flex: 1;
@@ -120,27 +149,29 @@ const ConHeart = styled.span`
   width: 50px;
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const SortBox = styled.div`
   display: flex;
-  justify-content: flex-end;
-`
+  justify-content: center;
+`;
 
 const SortBtn = styled(Button)`
   height: 30px;
   width: 100px;
   margin: 20px;
-`
+`;
 const HomeHead = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 20px;
-`
+  justify-content: center;
+  padding: 20px 0 0 130px;
+`;
 
 const InputKeyword = styled.input`
-  border: none;
+  border: 1px solid var(--color3);
+  border-radius: 5px;
+  margin-top: 30px;
   padding: 10px;
-  width: 300px;
-  border-bottom: 2px solid var(--color2);
+  width: 550px;
+  /* border-bottom: 2px solid var(--color2); */
 `;

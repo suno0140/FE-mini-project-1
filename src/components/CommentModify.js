@@ -114,8 +114,8 @@ function CommentModify(props) {
         </div>
       </CommentEl>
       <CommentBot>
-        <div>{list.nickname}</div>
-        <div>{dateCalc(list.createdAt)}</div>
+        <CommentWirter>작성자 / {list.nickname}</CommentWirter>
+        <CommentTime>{dateCalc(list.createdAt)}</CommentTime>
       </CommentBot>
     </div>
   );
@@ -125,8 +125,8 @@ export default CommentModify;
 
 const InputTitle = styled.input`
   border: none;
+  border-radius: 5px;
   padding: 10px;
-  /* border-bottom: 2px solid var(--color2); */
   font-size: medium;
   flex: 1;
 `;
@@ -135,12 +135,9 @@ const CommentBtn = styled(Button)`
   height: 30px;
   width: 50px;
   margin-left: 10px;
-  background-color: ${(props) => props.color};
 `;
 
 const CommentEl = styled.div`
-  border-bottom: 2px solid var(--color2);
-  padding-left: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -151,4 +148,12 @@ const CommentBot = styled.div`
   padding-left: 5px;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const CommentWirter = styled.div`
+  margin: 10px;
+`;
+
+const CommentTime = styled.div`
+  margin: 10px 0 0 0px;
 `;

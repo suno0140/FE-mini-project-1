@@ -11,7 +11,7 @@ function PostForm() {
   const { content } = useSelector((state) => state.contents);
   const initialContent = {
     title: "",
-    content: ""
+    content: "",
   };
 
   const [isClick, setClick] = useState(false);
@@ -72,10 +72,10 @@ function PostForm() {
 export default PostForm;
 
 const FormBox = styled.form`
-  border: 2px solid black;
+  border: 3px solid var(--color3);
   border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
+  padding: 50px;
+  margin: 50px auto;
   font-size: 24px;
   width: 800px;
   height: 400px;
@@ -87,13 +87,14 @@ const FormBox = styled.form`
 const InputTitle = styled.input`
   border: none;
   padding: 10px;
-  border-bottom: 2px solid var(--color2);
+  border-bottom: 2px solid var(--color3);
 `;
 
 const InputBody = styled.textarea`
-  border: 2px solid var(--color2);
+  border: 2px solid var(--color3);
   height: 250px;
   padding: 10px;
+  resize: none;
 `;
 const SubBtn = styled(Button)`
   height: 50px;

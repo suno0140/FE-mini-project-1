@@ -4,7 +4,6 @@ import { getCookies } from "./cookieControler";
 
 export const DB = process.env.REACT_APP_SERVER;
 
-
 export const axiosDB = axios.create({
   baseURL: DB,
   headers: { "Access-Control-Allow-Origin": "*" },

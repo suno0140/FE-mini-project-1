@@ -22,6 +22,18 @@ export const __getContentsAll = createAsyncThunk(
   }
 );
 
+export const __getGoodContents = createAsyncThunk(
+  "contents/getGood",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axiosDB.get("/api/posts/recommend");
+      return thunkAPI.fulfillWithValue(data.data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const __getContent = createAsyncThunk(
   "content/get",
   async (payload, thunkAPI) => {
@@ -72,12 +84,12 @@ export const __searchContent = createAsyncThunk(
   "content/search",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload)
+      console.log(payload);
       // /api/posts/search?keyword=게시글
       const data = await axiosDB.get(`/api/posts/search?keyword=${payload}`);
-      console.log(data)
-      if(data.data.statusCode !== 200){
-        alert(data.data.msg) 
+      console.log(data);
+      if (data.data.statusCode !== 200) {
+        alert(data.data.msg);
         return null;
       }
       return thunkAPI.fulfillWithValue(data.data.data);
@@ -106,6 +118,18 @@ export const contentsSlice = createSlice({
         state.contents = action.payload;
       })
       .addCase(__getContentsAll.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // getgoodcontents reducer
+      .addCase(__getGoodContents.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__getGoodContents.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.contents = action.payload;
+      })
+      .addCase(__getGoodContents.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })

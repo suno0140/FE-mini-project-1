@@ -236,13 +236,13 @@ function Signup() {
         )}
         <br />
         <StButtonBox>
-          <StSignupBtn
+          <StBackBtn
             onClick={() => {
               onClickLogin();
             }}
           >
             뒤로가기
-          </StSignupBtn>
+          </StBackBtn>
           <StSignupBtn
             type="submit"
             disabled={
@@ -267,10 +267,10 @@ function Signup() {
 
 export default Signup;
 const StcontainerBox = styled.div`
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 1100px;
 `;
 
 const StForm = styled.form`
@@ -279,6 +279,7 @@ const StForm = styled.form`
   padding: 100px 100px 130px 100px;
   border: 2px solid var(--color3);
   border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 const Stdiv = styled.div`
   display: flex;
@@ -291,11 +292,11 @@ const StTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color3);
+  color: white;
 `;
 const Stlabel = styled.label`
   margin: 25px 10px 10px 0;
-  color: var(--color3);
+  color: white;
 `;
 
 const StInput = styled.input`
@@ -304,6 +305,12 @@ const StInput = styled.input`
   width: 100%;
 `;
 const StSignupBtn = styled(Button)`
+  height: 40px;
+  width: 90px;
+  margin: 5px 0 0 10px;
+  background-color: ${(props) => (props.disabled ? "gray" : "var(--color3)")};
+`;
+const StBackBtn = styled(Button)`
   height: 40px;
   width: 90px;
   margin: 5px 0 0 10px;

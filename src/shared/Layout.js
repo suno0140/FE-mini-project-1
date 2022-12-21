@@ -59,13 +59,13 @@ function Layout({ children }) {
 export default Layout;
 
 const HeadLine = styled.div`
-  /* background-color: var(--color1); */
-  height: 75px;
+  background-color: white;
+  height: 85px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  box-shadow: 0px 2px 0px 0px var(--color2);
+  /* box-shadow: 10px 10px 0px 0px black; */
   overflow: hidden;
 `;
 const BtnBox = styled.div`
