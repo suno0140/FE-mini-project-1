@@ -11,6 +11,8 @@ import { __getContent } from "../redux/modules/contentsSlice";
 
 import { axiosDB } from "../api/axiosAPI";
 
+import { dateCalc } from "./dateCalc";
+
 
 function CommentModify(props){
   const {id} = useParams();
@@ -54,6 +56,8 @@ function CommentModify(props){
       setIsEdit(false)
     }
   }
+
+  
   return(
     <div>
     <CommentEl>
@@ -92,14 +96,11 @@ function CommentModify(props){
     </CommentEl>
     <CommentBot>
       <div>{list.nickname}</div>
-      <div>{list.createdAt}</div>
+      <div>{dateCalc(list.createdAt)}</div>
     </CommentBot>
   </div>
   )
 }
-
-
-
 
 export default CommentModify;
 

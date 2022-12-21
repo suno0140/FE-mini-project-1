@@ -59,10 +59,11 @@ export default Layout;
 
 const HeadLine = styled.div`
   /* background-color: var(--color1); */
-  height: 75px;
+  height:75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;
   box-shadow: 0px 2px 0px 0px var(--color2);
   overflow: hidden;
 `;
