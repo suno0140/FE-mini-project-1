@@ -10,6 +10,8 @@ import CommentModify from "./CommentModify";
 import { axiosDB } from "../api/axiosAPI";
 
 import dayjs from "dayjs";
+import Button from "./Button";
+import axios from "axios";
 
 function DetailInfo() {
   const [isClick, setClick] = useState(false);
@@ -46,6 +48,16 @@ function DetailInfo() {
     }
   };
 
+  const checkGoodHandler = async (postid) => {
+    try {
+      const data = await axiosDB.post(`/api/posts/${postid}/recommend`);
+      console.log(data);
+      if (data.data.statusCode === 200) alert(data.data.msg);
+    } catch (error) {
+      alert("로그인정보를 확인해주세요.");
+    }
+  };
+
   const delHandler = async () => {
     if (!window.confirm("삭제 하시겠습니까?")) {
       return;
@@ -64,6 +76,7 @@ function DetailInfo() {
           <div>{content.nickname}</div>
           <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
         </ConMin>
+        <GoodBtn onClick={() => checkGoodHandler(content.id)}>좋아요</GoodBtn>
         <BtnBox>
           <ConBtn onClick={() => checkHandler(content.id)}>수정</ConBtn>
           <ConBtn onClick={delHandler}>삭제</ConBtn>
@@ -155,4 +168,9 @@ const CommentBox = styled.div`
   margin: 50px auto;
   padding: 20px;
   gap: 20px;
+`;
+
+const GoodBtn = styled(Button)`
+  margin: 20px 30px 0 670px;
+  padding: 10px 10px;
 `;
