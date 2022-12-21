@@ -4,15 +4,17 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { __getContentsAll, setInitialError, __searchContent } from "../redux/modules/contentsSlice";
 import Button from "./Button";
-
-
 import { dateCalc } from "./dateCalc";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function PostList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, error, contents } = useSelector((state) => state.contents);
   const [keyword, setKeyword] = useState("");
+  console.log(contents)
   useEffect(() => {
     dispatch(setInitialError())
     dispatch(__getContentsAll())
@@ -20,6 +22,7 @@ function PostList() {
   const toDetail = (id) => {
     navigate(`detail/${id}`)
   }
+  
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -57,6 +60,10 @@ function PostList() {
               <ConTitle>{v.title}</ConTitle>
               <ConBody>{v.content}</ConBody>
               <ConAuthor>{v.nickname}</ConAuthor>
+              <ConHeart>
+                <FontAwesomeIcon icon={faHeart} />
+                {v.recommendCount}
+              </ConHeart>
               <ConDate>{dateCalc(v.createdAt)}</ConDate>
             </List>
           )
@@ -70,18 +77,21 @@ export default PostList;
 
 const ListBox = styled.div`
   display: flex;
-  width: 1200px;
+  width: 1000px;
   margin: 20px auto;
   flex-direction: column;
-  gap: 20px;
+  gap: 50px;
 `
 
 const List = styled.div`
   display: flex;
   flex-direction: row;
-  border: 2px solid var(--color1);
-  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  padding: 20px;
   height: 20px;
+  background-color: white;
+  gap : 10px
 `
 
 
@@ -105,6 +115,12 @@ const ConDate = styled.span`
   flex: 1;
   text-align: right;
 `;
+
+const ConHeart = styled.span`
+  width: 50px;
+  display: flex;
+  justify-content: space-between;
+`
 
 const SortBox = styled.div`
   display: flex;
