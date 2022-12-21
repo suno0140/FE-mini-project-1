@@ -9,81 +9,75 @@ import CommentModify from "./CommentModify";
 
 import { axiosDB } from "../api/axiosAPI";
 
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 function DetailInfo() {
-  const [isClick, setClick] = useState(false)
+  const [isClick, setClick] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {id} = useParams();
-  const { isLoading, error, msg, content } = useSelector((state) => state.contents);
+  const { id } = useParams();
+  const { isLoading, error, msg, content } = useSelector(
+    (state) => state.contents
+  );
 
   useEffect(() => {
-    dispatch(__getContent(id))
+    dispatch(__getContent(id));
     if (error) {
-      alert(error.message)
-      navigate("../")
+      alert(error.message);
+      navigate("../");
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   useEffect(() => {
-    if (!isClick) return
+    if (!isClick) return;
     if (msg === "success" && isClick) {
-      navigate("../")
+      navigate("../");
     }
-  }, [msg, isClick])
+  }, [msg, isClick]);
 
-  const checkHandler = async(postid) =>{
-    try{
+  const checkHandler = async (postid) => {
+    try {
       const data = await axiosDB.get(`/api/posts/${postid}/membercheck`);
-      if(data.data.statusCode === 200) navigate(`../modify/${postid}`)
-      else if(data.data.statusCode === 400) alert(data.data.msg)
-      else alert("Error")
-    }catch(error){
-      alert(error.message)
+      if (data.data.statusCode === 200) navigate(`../modify/${postid}`);
+      else if (data.data.statusCode === 400) alert(data.data.msg);
+      else alert("Error");
+    } catch (error) {
+      alert(error.message);
     }
-  }
+  };
 
   const delHandler = async () => {
     if (!window.confirm("삭제 하시겠습니까?")) {
-      return
+      return;
     } else {
-      await dispatch(__delContent(id))
-      navigate("/")
+      await dispatch(__delContent(id));
+      navigate("/");
     }
-  }
+  };
 
   return (
-  <div>
-    <ContentBox>
-      <ConTitle>{content.title}</ConTitle>
-      <ConBody>{content.content}</ConBody>
-      <ConMin>
-        <div>{content.nickname}</div>
-        <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
-      </ConMin>
-      <BtnBox>
-        <ConBtn onClick={() => checkHandler(content.id)}>수정</ConBtn>
-        <ConBtn onClick={delHandler}>삭제</ConBtn>
-      </BtnBox>
-    </ContentBox>
-    <CommentForm />
-    <CommentBox>
-      CommentsList
-      {content?.commentList?.map((v) => {
-        return (
-          <CommentModify
-            key = {v.id}
-            content = {v}
-            >
-          </CommentModify>
-        )
-      })}
-    </CommentBox>
-
-  </div>
-
-  )
+    <div>
+      <ContentBox>
+        <ConTitle>{content.title}</ConTitle>
+        <ConBody>{content.content}</ConBody>
+        <ConMin>
+          <div>{content.nickname}</div>
+          <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
+        </ConMin>
+        <BtnBox>
+          <ConBtn onClick={() => checkHandler(content.id)}>수정</ConBtn>
+          <ConBtn onClick={delHandler}>삭제</ConBtn>
+        </BtnBox>
+      </ContentBox>
+      <CommentForm />
+      <CommentBox>
+        CommentsList
+        {content?.commentList?.map((v) => {
+          return <CommentModify key={v.id} content={v}></CommentModify>;
+        })}
+      </CommentBox>
+    </div>
+  );
 }
 
 export default DetailInfo;
@@ -96,7 +90,7 @@ const ContentBox = styled.div`
   flex-direction: column;
   padding: 20px;
   text-align: center;
-`
+`;
 
 const ConTitle = styled.div`
   font-size: large;
@@ -106,17 +100,16 @@ const ConTitle = styled.div`
   padding: 10px;
   color: #000;
   padding: 10px;
-  &:before{
+  &:before {
     position: absolute;
     left: -10px;
     top: 0;
-    content: '';
+    content: "";
     width: 10px;
     height: 50%;
     background-color: var(--color1);
   }
-  
-`
+`;
 
 const ConBody = styled.div`
   padding: 20px;
@@ -126,18 +119,18 @@ const ConBody = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: left;
-`
+`;
 
 const ConMin = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const BtnBox = styled.div`
   background: none;
   display: flex;
   margin: auto;
-`
+`;
 
 const ConBtn = styled.button`
   border: none;
@@ -146,12 +139,12 @@ const ConBtn = styled.button`
   width: 100px;
   color: white;
   margin: 20px;
-  &:hover{
+  &:hover {
     background-color: white;
     color: Black;
     border: 3px solid var(--color2);
   }
-`
+`;
 
 const CommentBox = styled.div`
   border: 4px solid var(--color2);
@@ -162,4 +155,4 @@ const CommentBox = styled.div`
   margin: 50px auto;
   padding: 20px;
   gap: 20px;
-`
+`;
