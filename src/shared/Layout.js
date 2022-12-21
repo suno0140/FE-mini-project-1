@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/Button";
 import { ReactComponent as icon } from "../img/TS_icon_2.svg";
-import { getCookie } from "../components/LoginFrame/LoginForm";
+// import { getCookie } from "../components/LoginFrame/LoginForm";
+import { getCookies } from "../api/cookieControler";
 import { useCookies } from "react-cookie";
 
 function Header() {
   const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
-  const token = getCookie("id");
+  const token = getCookies("id");
 
   const logOut = () => {
     if (!window.confirm("로그아웃 하겠습니까??")) {

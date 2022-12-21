@@ -3,17 +3,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import { axiosDB } from "../../api/axiosAPI";
-import { Cookies } from "react-cookie";
 import { encrypt } from "./Encrypt";
+import { setCookies, getCookies } from "../../api/cookieControler";
 
-const cookies = new Cookies();
-
-const setCookie = (id, value, option) => {
-  return cookies.set(id, value, { ...option });
-};
-export const getCookie = (id) => {
-  return cookies.get(id);
-};
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -56,7 +48,7 @@ function LoginForm() {
         navigate(`/login`);
       } else {
         navigate(`/`);
-        setCookie("id", res.headers.authorization, {
+        setCookies("id", res.headers.authorization, {
           path: "/",
           maxAge: 240,
         });
