@@ -11,61 +11,72 @@ import { axiosDB } from "../api/axiosAPI";
 
 import dayjs from "dayjs";
 
+import Swal from "sweetalert2";
+
 function DetailInfo() {
-  const [isClick, setClick] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isLoading, error, msg, content } = useSelector(
+  const { isLoading, content } = useSelector(
     (state) => state.contents
   );
 
-  useEffect(() => {
-    dispatch(__getContent(id));
-    if (error) {
-      alert(error.message);
-      navigate("../");
-    }
-  }, [dispatch]);
 
   useEffect(() => {
-    if (!isClick) return;
-    if (msg === "success" && isClick) {
-      navigate("../");
-    }
-  }, [msg, isClick]);
+    dispatch(__getContent(id));
+    if (content === undefined) navigate("/")
+  }, [dispatch, content]);
 
   const checkHandler = async (postid) => {
     try {
       const data = await axiosDB.get(`/api/posts/${postid}/membercheck`);
       if (data.data.statusCode === 200) navigate(`../modify/${postid}`);
       else if (data.data.statusCode === 400) alert(data.data.msg);
-      else alert("Error");
+      else {
+        Swal.fire(
+          '로그인 정보를 학인 해주세요',
+          '',
+          'error'
+        )
+      };
     } catch (error) {
-      alert(error.message);
+      Swal.fire(
+        '로그인 정보를 학인 해주세요',
+        '',
+        'error'
+      )
     }
   };
 
-  const delHandler = async () => {
-    if (!window.confirm("삭제 하시겠습니까?")) {
-      return;
-    } else {
-      await dispatch(__delContent(id));
-      navigate("/");
-    }
+  const delHandler = () => {
+    Swal.fire({
+      title: "삭제 하시겠습니까?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '삭제'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+          await dispatch(__delContent(id));
+          dispatch(__getContent(id));
+      }
+    })
   };
+
+
 
   return (
     <div>
       <ContentBox>
-        <ConTitle>{content.title}</ConTitle>
-        <ConBody>{content.content}</ConBody>
+        <ConTitle>{content?.title}</ConTitle>
+        <ConBody>{content?.content}</ConBody>
         <ConMin>
-          <div>{content.nickname}</div>
-          <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
+          <div>{content?.nickname}</div>
+          <div>{dayjs(content?.createdAt).format("YYYY-MM-DD HH:mm:ss")}</div>
         </ConMin>
         <BtnBox>
-          <ConBtn onClick={() => checkHandler(content.id)}>수정</ConBtn>
+          <ConBtn onClick={() => checkHandler(content?.id)}>수정</ConBtn>
           <ConBtn onClick={delHandler}>삭제</ConBtn>
         </BtnBox>
       </ContentBox>

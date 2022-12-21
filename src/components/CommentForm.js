@@ -7,6 +7,8 @@ import { __addComment, __getComments } from "../redux/modules/commentsSlice";
 import contentsSlice, { __getContent } from "../redux/modules/contentsSlice";
 import Button from "./Button";
 
+import Swal from "sweetalert2";
+
 function CommentForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,16 +19,27 @@ function CommentForm() {
   const onAddHandler = async (e) => {
     e.preventDefault()
     if (content.trim() === "") {
-      alert("공백을 채워주세요")
+      Swal.fire(
+        '"공백을 채워주세요"',
+        '',
+        'warning'
+      )
       return
     }
-    if(!window.confirm("추가 하겠습니까?")){
-      return
-    } else {
-      await dispatch(__addComment({content, contentId}))
-      dispatch(__getContent(id))
-      setContent("")
-    }
+    Swal.fire({
+      title: '추가 하겠습니까?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '추가'
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        await dispatch(__addComment({content, contentId}))
+        dispatch(__getContent(id))
+        setContent("")
+      }
+    })
   }
 
   return (
