@@ -60,7 +60,7 @@ export default Layout;
 
 const HeadLine = styled.div`
   /* background-color: var(--color1); */
-  height:75px;
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
