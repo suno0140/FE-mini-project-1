@@ -55,6 +55,7 @@ function PostList() {
           return (
             <List key={v.id} onClick={() => { toDetail(v.id) }}>
               <ConTitle>{v.title}</ConTitle>
+              <ConBody>{v.content}</ConBody>
               <ConAuthor>{v.nickname}</ConAuthor>
               <ConDate>{dateCalc(v.createdAt)}</ConDate>
             </List>
@@ -80,20 +81,29 @@ const List = styled.div`
   flex-direction: row;
   border: 2px solid var(--color1);
   padding: 10px;
+  height: 20px;
 `
 
+
 const ConTitle = styled.span`
-  flex-grow: 1;
+  flex: 2;
   font-size : large;
 `;
 
+const ConBody = styled.span`
+  flex: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 const ConAuthor = styled.span`
-  flex-grow: 1;
+  flex: 1;
 `;
 
 const ConDate = styled.span`
-  flex-grow: 1;
-  text-align: center;
+  flex: 1;
+  text-align: right;
 `;
 
 const SortBox = styled.div`
