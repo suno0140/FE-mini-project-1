@@ -13,6 +13,7 @@ export const axiosDB = axios.create({
 //   config.headers["Authorization"] = `${token}`;
 //   return config;
 // });
+
 axiosDB.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
   const token = getCookie("id");
