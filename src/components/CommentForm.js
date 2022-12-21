@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import styled from "styled-components";
 import { __addComment, __getComments } from "../redux/modules/commentsSlice";
-import contentsSlice, { __getContent } from "../redux/modules/contentsSlice";
+import { __getContent } from "../redux/modules/contentsSlice";
 import Button from "./Button";
 
 import Swal from "sweetalert2";
 
 function CommentForm() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [content, setContent] = useState("");
 
   const { id } = useParams();

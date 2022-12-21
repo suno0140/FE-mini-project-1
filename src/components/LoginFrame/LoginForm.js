@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import { axiosDB } from "../../api/axiosAPI";
 import { encrypt } from "./Encrypt";
-import { setCookies, getCookies } from "../../api/cookieControler";
+import { setCookies } from "../../api/cookieControler";
 
 import Swal from "sweetalert2";
 
@@ -53,7 +53,7 @@ function LoginForm() {
       userid,
       password,
     }).then((res) => {
-      if (res == undefined) {
+      if (res === undefined) {
         navigate(`/login`);
       } else {
         navigate(`/`);

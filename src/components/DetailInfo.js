@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { __delContent, __getContent } from "../redux/modules/contentsSlice";
@@ -11,7 +11,6 @@ import { axiosDB } from "../api/axiosAPI";
 
 import dayjs from "dayjs";
 import Button from "./Button";
-import axios from "axios";
 
 import Swal from "sweetalert2";
 
@@ -27,7 +26,7 @@ function DetailInfo() {
   useEffect(() => {
     dispatch(__getContent(id));
     if (content === undefined) navigate("/")
-  }, [dispatch, content]);
+  }, [dispatch, content, id , navigate]);
 
   const checkHandler = async (postid) => {
     try {
@@ -61,10 +60,11 @@ function DetailInfo() {
       confirmButtonText: '삭제'
     }).then(async (result) => {
       if (result.isConfirmed) {
-          await dispatch(__delContent(id));
-          dispatch(__getContent(id));
+        await dispatch(__delContent(id));
+        dispatch(__getContent(id));
       }
     })
+  };
 
   const checkGoodHandler = async (postid) => {
     try {
@@ -76,7 +76,7 @@ function DetailInfo() {
     }
   };
 
-  };
+
 
 
 
