@@ -1,35 +1,33 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PostList from "../components/PostList";
 
 import { axiosDB } from "../api/axiosAPI";
 
 import axios from "axios";
-import {DB} from "../api/axiosAPI"
+import { DB } from "../api/axiosAPI";
 
 function Home() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
-// /api/members/kakao
+  // /api/members/kakao
 
-  const kakaoLogin = async() =>{
-    console.log(code)
-    try{
-      const data = await axios.get(`${DB}/api/members/kakao`,{
-        headers: { "Authorization":  `Bearer ${code}` }
-      })
-      console.log(data)
+  const kakaoLogin = async () => {
+    console.log(code);
+    try {
+      const data = await axios.get(`${DB}/api/members/kakao?code=${code}`);
+      console.log(data);
       return data;
-    } catch (error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
-  useEffect(()=>{
-    if(code){
+  useEffect(() => {
+    if (code) {
       kakaoLogin();
     }
-  },[code])
+  }, [code]);
 
   // const postLogin = async (post) => {
   //   try {
@@ -44,6 +42,6 @@ function Home() {
     <div>
       <PostList />
     </div>
-  )
+  );
 }
 export default Home;

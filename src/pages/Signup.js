@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { __addSignup } from "../redux/modules/signupSlice";
-import { useCallback } from "react";
 import { axiosDB } from "../api/axiosAPI";
 
 function Signup() {
@@ -273,7 +271,6 @@ const StcontainerBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, var(--color1), var(--color2));
 `;
 
 const StForm = styled.form`

@@ -14,8 +14,10 @@ const GlobalStyle = createGlobalStyle`
 
 *{
   font-family: 'NanumSquareNeo-Variable';
+  
 }
 body {
+    background: linear-gradient(to right, var(--color1), var(--color2));
     width: 100vw;
     height: 100vh;
   }

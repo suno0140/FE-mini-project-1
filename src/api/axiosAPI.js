@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "../pages/Login";
+import { getCookie } from "../components/LoginFrame/LoginForm";
 export const DB = process.env.REACT_APP_SERVER;
 
 export const axiosDB = axios.create({
@@ -19,4 +19,3 @@ axiosDB.interceptors.request.use((config) => {
   config.headers["Authorization"] = `${token}`;
   return config;
 });
-
