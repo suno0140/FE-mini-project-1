@@ -68,6 +68,25 @@ export const __patchContent = createAsyncThunk(
   }
 );
 
+export const __searchContent = createAsyncThunk(
+  "content/search",
+  async (payload, thunkAPI) => {
+    try {
+      console.log(payload)
+      // /api/posts/search?keyword=게시글
+      const data = await axiosDB.get(`/api/posts/search?keyword=${payload}`);
+      console.log(data)
+      if(data.data.statusCode !== 200){
+        alert(data.data.msg) 
+        return null;
+      }
+      return thunkAPI.fulfillWithValue(data.data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue("error");
+    }
+  }
+);
+
 export const contentsSlice = createSlice({
   name: "contents",
   initialState,
@@ -91,6 +110,18 @@ export const contentsSlice = createSlice({
         state.error = action.payload;
       })
 
+      // search
+      .addCase(__searchContent.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__searchContent.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.contents = action.payload;
+      })
+      .addCase(__searchContent.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       // getContent for DetailPage
       .addCase(__getContent.pending, (state) => {
         state.isLoading = true;

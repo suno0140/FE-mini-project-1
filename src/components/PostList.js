@@ -1,35 +1,62 @@
-import React,{useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { __getContentsAll, setInitialError } from "../redux/modules/contentsSlice";
+import { __getContentsAll, setInitialError, __searchContent } from "../redux/modules/contentsSlice";
 import Button from "./Button";
 
-function PostList(){
+
+import { dateCalc } from "./dateCalc";
+
+function PostList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, error , contents} = useSelector((state) => state.contents);
-  useEffect(()=>{
+  const { isLoading, error, contents } = useSelector((state) => state.contents);
+  const [keyword, setKeyword] = useState("");
+  useEffect(() => {
     dispatch(setInitialError())
     dispatch(__getContentsAll())
-  },[dispatch])
-  const toDetail = (id) =>{
+  }, [dispatch])
+  const toDetail = (id) => {
     navigate(`detail/${id}`)
   }
 
-  return(
+  const searchHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim() === "") {
+      dispatch(__getContentsAll())
+      return;
+    }
+    dispatch(__searchContent(keyword))
+  }
+
+  return (
     <div>
-      <SortBox>
-        <SortBtn>최신순</SortBtn>
-        <SortBtn>추천순</SortBtn>
-      </SortBox>
+      <HomeHead>
+        <form onSubmit={(event) => { searchHandler(event) }}>
+          <InputKeyword
+            type="text"
+            placeholder="검색"
+            value={keyword}
+            onChange={(event) => { setKeyword(event.target.value) }}>
+          </InputKeyword>
+          <SortBtn>검색</SortBtn>
+        </form>
+        <SortBox>
+          <SortBtn>최신순</SortBtn>
+          <SortBtn>추천순</SortBtn>
+        </SortBox>
+      </HomeHead>
+
+
+
       <ListBox>
-        {contents?.map((v)=>{
-          return(
-            <List key={v.id} onClick={()=>{toDetail(v.id)}}>
+        {contents?.map((v) => {
+          return (
+            <List key={v.id} onClick={() => { toDetail(v.id) }}>
               <ConTitle>{v.title}</ConTitle>
               <ConAuthor>{v.nickname}</ConAuthor>
-              <ConDate>{v.createdAt}</ConDate>
+              <ConDate>{dateCalc(v.createdAt)}</ConDate>
             </List>
           )
         })}
@@ -79,3 +106,15 @@ const SortBtn = styled(Button)`
   width: 100px;
   margin: 20px;
 `
+const HomeHead = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+`
+
+const InputKeyword = styled.input`
+  border: none;
+  padding: 10px;
+  width: 300px;
+  border-bottom: 2px solid var(--color2);
+`;

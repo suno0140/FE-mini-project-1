@@ -9,6 +9,8 @@ import CommentModify from "./CommentModify";
 
 import { axiosDB } from "../api/axiosAPI";
 
+import dayjs from 'dayjs';
+
 function DetailInfo() {
   const [isClick, setClick] = useState(false)
   const dispatch = useDispatch();
@@ -58,7 +60,7 @@ function DetailInfo() {
       <ConBody>{content.content}</ConBody>
       <ConMin>
         <div>{content.nickname}</div>
-        <div>{content.createdAt}</div>
+        <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
       </ConMin>
       <BtnBox>
         <ConBtn onClick={() => checkHandler(content.id)}>수정</ConBtn>
