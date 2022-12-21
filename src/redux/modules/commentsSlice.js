@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 import { axiosDB } from "../../api/axiosAPI";
 
+import Swal from "sweetalert2";
+
 const initialState = {
   comments: [],
   isLoading: false,
@@ -36,11 +38,16 @@ export const __delComment = createAsyncThunk(
   "comment/delete",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
-      await axiosDB.delete(`/api/posts/comments/${payload}`);
+      const data = await axiosDB.delete(`/api/posts/comments/${payload}`);
+      console.log('data',data)
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
-      return thunkAPI.rejectWithValue("error");
+      Swal.fire(
+        '로그인 정보를 확인해주세요',
+        '',
+        'error'
+      )      
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -91,11 +98,10 @@ export const commentsSlice = createSlice({
       .addCase(__delComment.fulfilled, (state, action) => {
         state.isLoading = false;
         state.comments = state.comments.filter((v) => v.id !== action.payload);
-        state.msg = "success";
       })
       .addCase(__delComment.rejected, (state, action) => {
         state.isLoading = false;
-        state.msg = "error";
+        // state.error = action.payload;
       });
   },
 });
