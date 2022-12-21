@@ -1,6 +1,9 @@
 import axios from "axios";
-import { getCookie } from "../components/LoginFrame/LoginForm";
+// import { getCookies } from "../components/LoginFrame/LoginForm";
+import { getCookies } from "./cookieControler";
+
 export const DB = process.env.REACT_APP_SERVER;
+
 
 export const axiosDB = axios.create({
   baseURL: DB,
@@ -16,7 +19,7 @@ export const axiosDB = axios.create({
 
 axiosDB.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
-  const token = getCookie("id");
+  const token = getCookies("id");
   config.headers["Authorization"] = `${token}`;
   return config;
 });
