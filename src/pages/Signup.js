@@ -29,20 +29,6 @@ function Signup() {
   const [isUseridCheck, setIsUseridCheck] = useState(false);
   const [isNickNameCheck, setIsNickNameCheck] = useState(false);
 
-//   const secretKey = process.env.REACT_APP_Key; // 32자리 비밀키
-// const iv = "abcdefghijklmnop"; // 16자리 iv
-
-// const encrypt = (text: string) => {
-//   const cipher = CryptoJS.AES.encrypt(
-//     text,
-//     CryptoJS.enc.Utf8.parse(secretKey),
-//     {
-//       iv: CryptoJS.enc.Utf8.parse(iv),
-//       padding: CryptoJS.pad.Pkcs7,
-//       mode: CryptoJS.mode.CBC,
-//     }
-//   );
-
   const useridRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
@@ -167,138 +153,135 @@ function Signup() {
   };
 
   return (
-    <>
-      <StcontainerBox>
-        <StForm>
-          <StTitle>회원가입</StTitle>
-          <Stlabel>아이디</Stlabel>
-          <Stdiv>
-            <StInput
-              placeholder=" 이메일형식으로 작성해주세요"
-              onChange={onChangeUserId}
-              type="email"
-              disabled={isUseridCheck}
-            ></StInput>
-            <StConfirmBtn
-              type="button"
-              onClick={(event) => {
-                onIdCheck(event);
-              }}
-            >
-              중복체크
-            </StConfirmBtn>
-          </Stdiv>
-
-          {userid.length > 0 && (
-            <span
-              style={{ color: isUserid ? "blue" : "red" }}
-              className={`message ${isUserid ? "success" : "error"}`}
-            >
-              {useridMessage}
-            </span>
-          )}
-
-          <Stlabel>닉네임</Stlabel>
-          <Stdiv>
-            <StInput
-              placeholder=" 닉네임을 입력해주세요"
-              disabled={isNickNameCheck}
-              onChange={onChangeNickName}
-              type="text"
-            ></StInput>
-            <StConfirmBtn
-              type="button"
-              onClick={(event) => {
-                onNickCheck(event);
-              }}
-            >
-              중복체크
-            </StConfirmBtn>
-          </Stdiv>
-          {nickname.length > 1 && (
-            <span
-              style={{ color: isNickName ? "blue" : "red" }}
-              className={`message ${isNickName ? "success" : "error"}`}
-            >
-              {nickNameMessage}
-            </span>
-          )}
-          <Stlabel>비밀번호</Stlabel>
+    <StcontainerBox>
+      <StForm>
+        <StTitle>회원가입</StTitle>
+        <Stlabel>아이디</Stlabel>
+        <Stdiv>
           <StInput
-            placeholder=" 숫자+영문자+특수문자  8자리이상"
-            type="password"
-            onChange={onChangePassword}
+            placeholder=" 이메일형식으로 작성해주세요"
+            onChange={onChangeUserId}
+            type="email"
+            disabled={isUseridCheck}
           ></StInput>
-          {password.length > 0 && (
-            <span
-              style={{ color: isPassword ? "blue" : "red" }}
-              className={`message ${isPassword ? "success" : "error"}`}
-            >
-              {passwordMessage}
-            </span>
-          )}
-          <Stlabel>비밀번호확인</Stlabel>
+          <StConfirmBtn
+            type="button"
+            onClick={(event) => {
+              onIdCheck(event);
+            }}
+          >
+            중복체크
+          </StConfirmBtn>
+        </Stdiv>
+
+        {userid.length > 0 && (
+          <span
+            style={{ color: isUserid ? "var(--color3)" : "#f85032" }}
+            className={`message ${isUserid ? "success" : "error"}`}
+          >
+            {useridMessage}
+          </span>
+        )}
+
+        <Stlabel>닉네임</Stlabel>
+        <Stdiv>
           <StInput
-            placeholder=" 숫자+영문자+특수문자  8자리이상"
-            type="password"
-            onChange={onChangePasswordConfirm}
+            placeholder=" 닉네임을 입력해주세요"
+            disabled={isNickNameCheck}
+            onChange={onChangeNickName}
+            type="text"
           ></StInput>
-          {passwordConfirm.length > 0 && (
-            <span
-              style={{ color: isPasswordConfirm ? "blue" : "red" }}
-              className={`message ${isPasswordConfirm ? "success" : "error"}`}
-            >
-              {passwordConfirmMessage}
-            </span>
-          )}
-          <br />
-          <StButtonBox>
-            <StSignupBtn
-              onClick={() => {
-                onClickLogin();
-              }}
-            >
-              뒤로가기
-            </StSignupBtn>
-            <StSignupBtn
-              type="submit"
-              disabled={
-                !(
-                  isNickName &&
-                  isPassword &&
-                  isUserid &&
-                  isPasswordConfirm &&
-                  isUseridCheck &&
-                  isNickNameCheck
-                )
-              }
-              onClick={onClickSignup}
-            >
-              회원가입
-            </StSignupBtn>
-          </StButtonBox>
-        </StForm>
-      </StcontainerBox>
-    </>
+          <StConfirmBtn
+            type="button"
+            onClick={(event) => {
+              onNickCheck(event);
+            }}
+          >
+            중복체크
+          </StConfirmBtn>
+        </Stdiv>
+        {nickname.length > 1 && (
+          <span
+            style={{ color: isNickName ? "var(--color3)" : "#f85032" }}
+            className={`message ${isNickName ? "success" : "error"}`}
+          >
+            {nickNameMessage}
+          </span>
+        )}
+        <Stlabel>비밀번호</Stlabel>
+        <StInput
+          placeholder=" 숫자+영문자+특수문자  8자리이상"
+          type="password"
+          onChange={onChangePassword}
+        ></StInput>
+        {password.length > 0 && (
+          <span
+            style={{ color: isPassword ? "var(--color3)" : "#f85032" }}
+            className={`message ${isPassword ? "success" : "error"}`}
+          >
+            {passwordMessage}
+          </span>
+        )}
+        <Stlabel>비밀번호확인</Stlabel>
+        <StInput
+          placeholder=" 숫자+영문자+특수문자  8자리이상"
+          type="password"
+          onChange={onChangePasswordConfirm}
+        ></StInput>
+        {passwordConfirm.length > 0 && (
+          <span
+            style={{ color: isPasswordConfirm ? "var(--color3)" : "#f85032" }}
+            className={`message ${isPasswordConfirm ? "success" : "error"}`}
+          >
+            {passwordConfirmMessage}
+          </span>
+        )}
+        <br />
+        <StButtonBox>
+          <StSignupBtn
+            onClick={() => {
+              onClickLogin();
+            }}
+          >
+            뒤로가기
+          </StSignupBtn>
+          <StSignupBtn
+            type="submit"
+            disabled={
+              !(
+                isNickName &&
+                isPassword &&
+                isUserid &&
+                isPasswordConfirm &&
+                isUseridCheck &&
+                isNickNameCheck
+              )
+            }
+            onClick={onClickSignup}
+          >
+            회원가입
+          </StSignupBtn>
+        </StButtonBox>
+      </StForm>
+    </StcontainerBox>
   );
 }
 
 export default Signup;
 const StcontainerBox = styled.div`
-  margin: 50px 10px 30px 30px;
-  width: 90%;
-  min-width: 800px;
-  padding: 30px 30px 30px 1px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(to right, var(--color1), var(--color2));
 `;
 
 const StForm = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: left;
-  width: 400px;
+  padding: 100px 100px 130px 100px;
+  border: 2px solid var(--color3);
+  border-radius: 10px;
 `;
 const Stdiv = styled.div`
   display: flex;
@@ -311,11 +294,11 @@ const StTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color2);
+  color: var(--color3);
 `;
 const Stlabel = styled.label`
   margin: 25px 10px 10px 0;
-  color: var(--color2);
+  color: var(--color3);
 `;
 
 const StInput = styled.input`
@@ -336,4 +319,3 @@ const StConfirmBtn = styled(Button)`
   height: 30px;
   margin: 11px;
 `;
-
