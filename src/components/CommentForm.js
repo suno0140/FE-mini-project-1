@@ -13,12 +13,13 @@ function CommentForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState("");
-  
-  const {id} = useParams();
-  const contentId = id
+
+  const { id } = useParams();
+  const contentId = id;
   const onAddHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (content.trim() === "") {
+
       Swal.fire(
         '"공백을 채워주세요"',
         '',
@@ -49,14 +50,14 @@ function CommentForm() {
         <InputTitle
           required
           type="text"
-          value = {content}
+          value={content}
           placeholder="댓글 입력"
-          onChange={(event)=>setContent(event.target.value)}
+          onChange={(event) => setContent(event.target.value)}
         ></InputTitle>
         <SubBtn onSubmit={onAddHandler}>추가</SubBtn>
       </FormBox>
     </Box>
-  )
+  );
 }
 
 export default CommentForm;
@@ -74,7 +75,7 @@ const FormBox = styled.form`
   margin: 10px;
 `;
 const InputTitle = styled.input`
-  border : none;
+  border: none;
   padding: 5px;
   border-bottom: 2px solid var(--color2);
   font-size: medium;
@@ -82,7 +83,7 @@ const InputTitle = styled.input`
 `;
 
 const SubBtn = styled(Button)`
-  height:40px;
+  height: 40px;
   width: 100px;
   margin: auto;
 `;

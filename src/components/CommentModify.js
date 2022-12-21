@@ -1,7 +1,11 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __delComment , __patchComment, __getComments} from "../redux/modules/commentsSlice";
+import {
+  __delComment,
+  __patchComment,
+  __getComments,
+} from "../redux/modules/commentsSlice";
 
 import Button from "./Button";
 import styled from "styled-components";
@@ -13,15 +17,16 @@ import { axiosDB } from "../api/axiosAPI";
 
 import { dateCalc } from "./dateCalc";
 
-import Swal from "sweetalert2";
 
+import Swal from "sweetalert2";
 
 function CommentModify(props){
   const {id} = useParams();
+
   const list = props.content;
   const dispatch = useDispatch();
   const [comment, setComment] = useState(list.content);
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEdit, setIsEdit] = useState(false);
 
   const checkHandler = async(commentsid) =>{
     try{
@@ -41,8 +46,9 @@ function CommentModify(props){
         '',
         'error'
       )    
+
     }
-  }
+  };
 
   const delHandler = async (comment_id) => {
     Swal.fire({
@@ -88,58 +94,70 @@ function CommentModify(props){
       }
     })
   }
-
-
-
   
   return(
     <div>
-    <CommentEl>
-    <InputTitle
+      <CommentEl>
+        <InputTitle
           required
           type="text"
-          value = {comment}
-          onChange = {(event)=>setComment(event.target.value)}
-          readOnly = {isEdit? "" : "readonly" } 
+          value={comment}
+          onChange={(event) => setComment(event.target.value)}
+          readOnly={isEdit ? "" : "readonly"}
         ></InputTitle>
-      <div>
-        { isEdit? 
-          <CommentBtn 
-          color = "var(--color1)"
-          onClick={(event)=> {onModifyHandler(event)}}
-          >수정</CommentBtn> 
-          :
-          <CommentBtn
-          color = "var(--color2)"
-          onClick={()=> {checkHandler(list.id)}}
-          >수정</CommentBtn>
-        }
-        
-        {isEdit?
-          <CommentBtn 
-          color = "var(--color1)"
-          onClick={async() => {await setComment(list.content); await setIsEdit(false);}}
-          >최소</CommentBtn>
-          :
-          <CommentBtn 
-          color = "var(--color2)"
-          onClick={()=>delHandler(list.id)}
-          >삭제</CommentBtn>
-        }
-      </div>
-    </CommentEl>
-    <CommentBot>
-      <div>{list.nickname}</div>
-      <div>{dateCalc(list.createdAt)}</div>
-    </CommentBot>
-  </div>
-  )
+        <div>
+          {isEdit ? (
+            <CommentBtn
+              color="var(--color1)"
+              onClick={(event) => {
+                onModifyHandler(event);
+              }}
+            >
+              수정
+            </CommentBtn>
+          ) : (
+            <CommentBtn
+              color="var(--color2)"
+              onClick={() => {
+                checkHandler(list.id);
+              }}
+            >
+              수정
+            </CommentBtn>
+          )}
+
+          {isEdit ? (
+            <CommentBtn
+              color="var(--color1)"
+              onClick={async () => {
+                await setComment(list.content);
+                await setIsEdit(false);
+              }}
+            >
+              최소
+            </CommentBtn>
+          ) : (
+            <CommentBtn
+              color="var(--color2)"
+              onClick={() => delHandler(list.id)}
+            >
+              삭제
+            </CommentBtn>
+          )}
+        </div>
+      </CommentEl>
+      <CommentBot>
+        <div>{list.nickname}</div>
+        <div>{dateCalc(list.createdAt)}</div>
+      </CommentBot>
+    </div>
+  );
 }
 
 export default CommentModify;
 
 const InputTitle = styled.input`
-  border : none;
+  border: none;
   padding: 10px;
   /* border-bottom: 2px solid var(--color2); */
   font-size: medium;
@@ -150,8 +168,8 @@ const CommentBtn = styled(Button)`
   height: 30px;
   width: 50px;
   margin-left: 10px;
-  background-color: ${(props)=> props.color} ;
-`
+  background-color: ${(props) => props.color};
+`;
 
 const CommentEl = styled.div`
   border-bottom: 2px solid var(--color2);
@@ -160,10 +178,10 @@ const CommentEl = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`
+`;
 const CommentBot = styled.div`
   display: flex;
-  padding-left:5px;
+  padding-left: 5px;
   flex-direction: row;
   justify-content: space-between;
-`
+`;
