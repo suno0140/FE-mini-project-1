@@ -28,7 +28,7 @@ function Header() {
     );
   } else {
     leftBtn = <HeadBtn onClick={() => navigate("login")}>로그인</HeadBtn>;
-    rightBtn = <HeadBtn onClick={() => navigate("signup")}>화원가입</HeadBtn>;
+    rightBtn = <HeadBtn onClick={() => navigate("signup")}>회원가입</HeadBtn>;
   }
 
   return (
