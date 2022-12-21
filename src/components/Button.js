@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 const StBtn = styled.button`
   border: none;
-  background-color: var(--color2);
+  background-color: var(--color3);
   color: white;
   border-radius: 5px;
   &:hover {
     background-color: white;
     color: Black;
-    border: 3px solid var(--color2);
+    border: 3px solid var(--color3);
   }
 `;
 

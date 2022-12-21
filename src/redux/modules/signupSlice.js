@@ -21,6 +21,7 @@ export const __addSignup = createAsyncThunk(
     try {
       // const password = encrypt(`post.password`);
       const password = encrypt(payload.password);
+      console.log(password);
       const userid = payload.userid;
       const nickname = payload.nickname;
       const userInfo = { userid, nickname, password };
