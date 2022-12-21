@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { encrypt } from "../../components/LoginForm/Encrypt";
+import { encrypt } from "../../components/LoginFrame/Encrypt";
 
 const Server = process.env.REACT_APP_SERVER;
 

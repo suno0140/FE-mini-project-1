@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/Button";
 import { ReactComponent as icon } from "../img/TS_icon_2.svg";
-import { getCookie } from "../pages/Login";
+import { getCookie } from "../components/LoginFrame/LoginForm";
 import { useCookies } from "react-cookie";
 
 function Header() {
