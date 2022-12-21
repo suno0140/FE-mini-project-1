@@ -11,23 +11,23 @@ function CommentForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState("");
-  
-  const {id} = useParams();
-  const contentId = id
+
+  const { id } = useParams();
+  const contentId = id;
   const onAddHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (content.trim() === "") {
-      alert("공백을 채워주세요")
-      return
+      alert("공백을 채워주세요");
+      return;
     }
-    if(!window.confirm("추가 하겠습니까?")){
-      return
+    if (!window.confirm("추가 하겠습니까?")) {
+      return;
     } else {
-      await dispatch(__addComment({content, contentId}))
-      dispatch(__getContent(id))
-      setContent("")
+      await dispatch(__addComment({ content, contentId }));
+      dispatch(__getContent(id));
+      setContent("");
     }
-  }
+  };
 
   return (
     <Box>
@@ -36,14 +36,14 @@ function CommentForm() {
         <InputTitle
           required
           type="text"
-          value = {content}
+          value={content}
           placeholder="댓글 입력"
-          onChange={(event)=>setContent(event.target.value)}
+          onChange={(event) => setContent(event.target.value)}
         ></InputTitle>
         <SubBtn onSubmit={onAddHandler}>추가</SubBtn>
       </FormBox>
     </Box>
-  )
+  );
 }
 
 export default CommentForm;
@@ -61,7 +61,7 @@ const FormBox = styled.form`
   margin: 10px;
 `;
 const InputTitle = styled.input`
-  border : none;
+  border: none;
   padding: 5px;
   border-bottom: 2px solid var(--color2);
   font-size: medium;
@@ -69,7 +69,7 @@ const InputTitle = styled.input`
 `;
 
 const SubBtn = styled(Button)`
-  height:40px;
+  height: 40px;
   width: 100px;
   margin: auto;
 `;
