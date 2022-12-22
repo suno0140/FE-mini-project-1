@@ -7,10 +7,11 @@ const StBtn = styled.button`
   color: white;
   border-radius: 5px;
   &:hover {
+    &:not([disabled]){
     background-color: white;
     color: Black;
     border: 3px solid var(--color3);
-  }
+  }}
 `;
 
 const Button = (props) => {

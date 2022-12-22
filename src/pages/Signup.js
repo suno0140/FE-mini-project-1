@@ -308,7 +308,11 @@ const StSignupBtn = styled(Button)`
   height: 40px;
   width: 90px;
   margin: 5px 0 0 10px;
-  background-color: ${(props) => (props.disabled ? "gray" : "var(--color3)")};
+  /* background-color: ${(props) => (props.disabled ? "gray" : "var(--color3)")}; */
+  &:disabled{
+    background-color: gray;
+    color: black
+  }
 `;
 const StBackBtn = styled(Button)`
   height: 40px;
