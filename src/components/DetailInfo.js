@@ -30,7 +30,8 @@ function DetailInfo() {
     try {
       const data = await axiosDB.get(`/api/posts/${postid}/membercheck`);
       if (data.data.statusCode === 200) navigate(`../modify/${postid}`);
-      else if (data.data.statusCode === 400) Swal.fire("로그인 정보를 학인 해주세요", "", "error");
+      else if (data.data.statusCode === 400)
+        Swal.fire("로그인 정보를 학인 해주세요", "", "error");
       else {
         Swal.fire("로그인 정보를 학인 해주세요", "", "error");
       }
@@ -75,12 +76,12 @@ function DetailInfo() {
           <div>작성자 / {content.nickname}</div>
           <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
         </ConMin>
-        <div>
+        <Condiv>
           <Stbutton onClick={() => checkGoodHandler(content.id)}>
             <Heart size="25"></Heart>
           </Stbutton>
           <Conspan>{content.recommendCount}</Conspan>
-        </div>
+        </Condiv>
 
         <BtnBox>
           <ConBtn onClick={() => checkHandler(content?.id)}>수정</ConBtn>
@@ -178,14 +179,16 @@ const CommentBox = styled.div`
   gap: 20px;
 `;
 
-const GoodBtn = styled(Button)`
-  margin: 20px 10px 0 650px;
-  padding: 10px 10px;
+const Condiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
 `;
 const Conspan = styled.span`
   margin-left: 2px;
   font-size: 25px;
 `;
+
 const Stbutton = styled.button`
   background-color: transparent;
   border: none;
@@ -209,28 +212,28 @@ const rotate = keyframes`
 `;
 
 const Heart = styled.div`
-  width:20px;
-  height:20px;
+  width: 20px;
+  height: 20px;
   background: #ea2027;
   position: relative;
   transform: rotate(45deg);
-  &:before, &:after{
+  &:before,
+  &:after {
     content: "";
-    width:20px;
-    height:20px;
+    width: 20px;
+    height: 20px;
     position: absolute;
     border-radius: 50%;
     background: #ea2027;
   }
-  &:before{
+  &:before {
     left: -50%;
   }
-  &:after{
+  &:after {
     left: 0%;
     top: -50%;
   }
-  &:active{
-    animation: ${rotate} 1s linear
+  &:active {
+    animation: ${rotate} 1s linear;
   }
-`
-
+`;
