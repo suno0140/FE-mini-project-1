@@ -4,18 +4,24 @@ import Posting from "../pages/Posting";
 import Signup from "../pages/Signup";
 import Detail from "../pages/Detail";
 import Login from "../pages/Login";
+import Layout from "./Layout";
+import Modify from "../pages/Modify";
+
 
 function Router() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/detail" element={<Detail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/posting" element={<Posting />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/posting" element={<Posting />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/modify/:id" element={<Modify />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </>
   );

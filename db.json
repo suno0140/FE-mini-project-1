@@ -1,0 +1,46 @@
+{
+  "signup": [
+    {
+      "id": "1",
+      "userid": "idid@idid.idid",
+      "nickname": "json-server",
+      "password": "json-server를 배워봅시다."
+    },
+    {
+      "userid": "123123@naver.com",
+      "nickname": "qeqwe131",
+      "password": "qq11",
+      "id": "yCEHs8R"
+    },
+    {
+      "userid": "123123@naver.com",
+      "nickname": "111",
+      "password": "11q",
+      "id": "8rAnIW5"
+    },
+    {
+      "userid": "123123@naver.com",
+      "nickname": "12313",
+      "password": "12414",
+      "id": "j9JswVq"
+    },
+    {
+      "userid": "vsdf@naver.com",
+      "nickname": "fsdif12",
+      "password": "dndb@5566",
+      "id": "y3qTTkJ"
+    },
+    {
+      "userid": "sdf@naver.com",
+      "nickname": "flsdfi13",
+      "password": "dndb@5566",
+      "id": "jjPtIRc"
+    },
+    {
+      "userid": "vlfx@nvaer.com",
+      "nickname": "fsdf1123",
+      "password": "dndb@5566",
+      "id": "hQeeGG7"
+    }
+  ]
+}

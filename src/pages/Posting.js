@@ -1,5 +1,10 @@
 import React from "react";
+import PostForm from "../components/detail/PostForm";
+
+
 function Posting() {
-  return <>Posting</>;
+  return(
+    <PostForm />
+  );
 }
 export default Posting;
