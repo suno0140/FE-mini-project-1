@@ -16,7 +16,7 @@ function Home() {
       const data = await axios.get(`${DB}/api/members/kakao?code=${code}`);
       setCookies("id", data.headers.authorization, {
         path: "/",
-        maxAge: 240,
+        maxAge: 1750,
       });
       navigate("/");
       return data;
