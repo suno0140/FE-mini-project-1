@@ -18,29 +18,24 @@ function CommentForm() {
   const onAddHandler = async (e) => {
     e.preventDefault();
     if (content.trim() === "") {
-
-      Swal.fire(
-        '"공백을 채워주세요"',
-        '',
-        'warning'
-      )
-      return
+      Swal.fire('"공백을 채워주세요"', "", "warning");
+      return;
     }
     Swal.fire({
-      title: '추가 하겠습니까?',
-      icon: 'question',
+      title: "추가 하겠습니까?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '추가'
-    }).then(async(result) => {
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "추가",
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        await dispatch(__addComment({content, contentId}))
-        dispatch(__getContent(id))
-        setContent("")
+        await dispatch(__addComment({ content, contentId }));
+        dispatch(__getContent(id));
+        setContent("");
       }
-    })
-  }
+    });
+  };
 
   return (
     <Box>
@@ -63,7 +58,7 @@ export default CommentForm;
 
 const Box = styled.div`
   border-bottom: 3px solid var(--color3);
-  padding: 20px 0 60px 0;
+  padding: 20px 45px 60px 45px;
   margin: 20px auto;
   width: 800px;
 `;
