@@ -53,40 +53,40 @@ function Signup() {
       setNickNameMessage(`올바른 닉네임 형식입니다.`);
       setIsNickName(true);
     }
-  });
-
-  const onChangePassword = useCallback((e) => {
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    const passwordCurrent = e.target.value;
-    setPassword(passwordCurrent);
-
-    if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage(
-        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-      );
-      setIsPassword(false);
-    } else {
-      setPasswordMessage("안전한 비밀번호입니다.");
-      setIsPassword(true);
-    }
   }, []);
 
-  const onChangePasswordConfirm = useCallback(
+  const onChangePassword = useCallback(
     (e) => {
-      const passwordConfirmCurrent = e.target.value;
-      setPasswordConfirm(passwordConfirmCurrent);
+      const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+      const passwordCurrent = e.target.value;
+      setPassword(passwordCurrent);
 
-      if (password === passwordConfirmCurrent) {
-        setPasswordConfirmMessage("비밀번호가 일치합니다.");
-        setIsPasswordConfirm(true);
+      if (!passwordRegex.test(passwordCurrent)) {
+        setPasswordMessage(
+          "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+        );
+        setIsPassword(false);
       } else {
-        setPasswordConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요!");
-        setIsPasswordConfirm(false);
+        setPasswordMessage("안전한 비밀번호입니다.");
+        setIsPassword(true);
       }
     },
     [password]
   );
+
+  const onChangePasswordConfirm = useCallback((e) => {
+    const passwordConfirmCurrent = e.target.value;
+    setPasswordConfirm(passwordConfirmCurrent);
+
+    if (password === passwordConfirmCurrent) {
+      setPasswordConfirmMessage("비밀번호가 일치합니다.");
+      setIsPasswordConfirm(true);
+    } else {
+      setPasswordConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요!");
+      setIsPasswordConfirm(false);
+    }
+  }, []);
 
   const idCheck = async (post) => {
     try {
@@ -105,10 +105,10 @@ function Signup() {
   const onIdCheck = (e) => {
     e.preventDefault();
     if (userid.length === 0) {
-      Swal.fire("", "아이디를 입력해주세요.", "warning");      
+      Swal.fire("", "아이디를 입력해주세요.", "warning");
       return;
     } else if (!useridRegex.test(userid)) {
-      Swal.fire("", "올바른 이메일형식이 아닙니다.", "error");      
+      Swal.fire("", "올바른 이메일형식이 아닙니다.", "error");
       return;
     }
     idCheck({
@@ -121,10 +121,10 @@ function Signup() {
       console.log(post);
       const data = await axiosDB.post(`api/members/check`, post);
       if (data.data.statusCode === 200) {
-        Swal.fire("", "사용 가능한 닉네임 입니다.", "success");      
+        Swal.fire("", "사용 가능한 닉네임 입니다.", "success");
         setIsNickNameCheck(true);
       } else {
-        Swal.fire("", "중복된 닉네임 입니다.", "error");      
+        Swal.fire("", "중복된 닉네임 입니다.", "error");
       }
       return data;
     } catch (error) {
@@ -135,7 +135,7 @@ function Signup() {
   const onNickCheck = (e) => {
     e.preventDefault();
     if (nickname.length === 0) {
-      Swal.fire("", "닉네임을 입력해주세요.", "warning");      
+      Swal.fire("", "닉네임을 입력해주세요.", "warning");
       return;
     }
     nickCheck({ userid: "", nickname });
@@ -147,7 +147,7 @@ function Signup() {
 
   const onClickSignup = () => {
     dispatch(__addSignup({ userid, nickname, password }));
-    Swal.fire("", "회원가입에 성공하셨습니다.", "success");      
+    Swal.fire("", "회원가입에 성공하셨습니다.", "success");
     navigate(`/login`);
   };
 
@@ -309,10 +309,11 @@ const StSignupBtn = styled(Button)`
   height: 40px;
   width: 90px;
   margin: 5px 0 0 10px;
-  /* background-color: ${(props) => (props.disabled ? "gray" : "var(--color3)")}; */
-  &:disabled{
+  /* background-color: ${(props) =>
+    props.disabled ? "gray" : "var(--color3)"}; */
+  &:disabled {
     background-color: gray;
-    color: black
+    color: black;
   }
 `;
 const StBackBtn = styled(Button)`
