@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { __delContent, __getContent } from "../redux/modules/contentsSlice";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import CommentForm from "./CommentForm";
 import CommentModify from "./CommentModify";
 import { BsFillHeartFill } from "react-icons/bs";
@@ -30,7 +30,7 @@ function DetailInfo() {
     try {
       const data = await axiosDB.get(`/api/posts/${postid}/membercheck`);
       if (data.data.statusCode === 200) navigate(`../modify/${postid}`);
-      else if (data.data.statusCode === 400) alert(data.data.msg);
+      else if (data.data.statusCode === 400) Swal.fire("로그인 정보를 학인 해주세요", "", "error");
       else {
         Swal.fire("로그인 정보를 학인 해주세요", "", "error");
       }
@@ -77,7 +77,7 @@ function DetailInfo() {
         </ConMin>
         <div>
           <Stbutton onClick={() => checkGoodHandler(content.id)}>
-            <BsFillHeartFill size="25"></BsFillHeartFill>
+            <Heart size="25"></Heart>
           </Stbutton>
           <Conspan>{content.recommendCount}</Conspan>
         </div>
@@ -194,3 +194,43 @@ const Stbutton = styled.button`
     color: Black;
   }
 `;
+
+const rotate = keyframes`
+  10% { -webkit-transform: rotate(-10deg); };
+  20% { -webkit-transform: rotate(8deg); };
+  30% { -webkit-transform: rotate(-5deg); };
+  40% { -webkit-transform: rotate(4deg); };
+  50% { -webkit-transform: rotate(-3deg); };
+  60% { -webkit-transform: rotate(2deg); };
+  70% { -webkit-transform: rotate(-1deg); };
+  80% { -webkit-transform: rotate(1deg); };
+  90% { -webkit-transform: rotate(-1deg); };
+  100% { -webkit-transform: rotate(0deg); };
+`;
+
+const Heart = styled.div`
+  width:20px;
+  height:20px;
+  background: #ea2027;
+  position: relative;
+  transform: rotate(45deg);
+  &:before, &:after{
+    content: "";
+    width:20px;
+    height:20px;
+    position: absolute;
+    border-radius: 50%;
+    background: #ea2027;
+  }
+  &:before{
+    left: -50%;
+  }
+  &:after{
+    left: 0%;
+    top: -50%;
+  }
+  &:active{
+    animation: ${rotate} 1s linear
+  }
+`
+
