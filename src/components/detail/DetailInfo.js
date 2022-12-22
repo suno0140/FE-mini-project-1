@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __delContent, __getContent } from "../redux/modules/contentsSlice";
+import { __delContent, __getContent } from "../../redux/modules/contentsSlice";
 
 import styled, { keyframes } from "styled-components";
-import CommentForm from "./CommentForm";
-import CommentModify from "./CommentModify";
+import CommentForm from "../comment/CommentForm";
+import CommentModify from "../comment/CommentModify";
 import { BsFillHeartFill } from "react-icons/bs";
 
-import { axiosDB } from "../api/axiosAPI";
+import { axiosDB } from "../../api/axiosAPI";
 
 import dayjs from "dayjs";
-import Button from "./Button";
+import Button from "../feature/Button";
 
 import Swal from "sweetalert2";
 

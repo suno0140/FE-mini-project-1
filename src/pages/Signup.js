@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import Button from "../components/Button";
+import Button from "../components/feature/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __addSignup } from "../redux/modules/signupSlice";

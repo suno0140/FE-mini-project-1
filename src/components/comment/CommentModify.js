@@ -5,17 +5,17 @@ import {
   __delComment,
   __patchComment,
   __getComments,
-} from "../redux/modules/commentsSlice";
+} from "../../redux/modules/commentsSlice";
 
-import Button from "./Button";
+import Button from "../feature/Button";
 import styled from "styled-components";
-import { __getContent } from "../redux/modules/contentsSlice";
+import { __getContent } from "../../redux/modules/contentsSlice";
 
 // /api/posts/{postid}/membercheck
 
-import { axiosDB } from "../api/axiosAPI";
+import { axiosDB } from "../../api/axiosAPI";
 
-import { dateCalc } from "./dateCalc";
+import { dateCalc } from "../feature/dateCalc";
 
 
 import { useCallback } from "react";

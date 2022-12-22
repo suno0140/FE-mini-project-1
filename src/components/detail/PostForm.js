@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __addContent, __patchContent } from "../redux/modules/contentsSlice";
+import { __addContent, __patchContent } from "../../redux/modules/contentsSlice";
 
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../feature/Button";
 
 import Swal from 'sweetalert2'
 

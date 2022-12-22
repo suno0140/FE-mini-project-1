@@ -1,6 +1,5 @@
 import React from "react";
-import ModifyForm from "../components/ModifyForm";
-import PostForm from "../components/PostForm";
+import ModifyForm from "../components/detail/ModifyForm";
 
 function Modify(){
   return(
