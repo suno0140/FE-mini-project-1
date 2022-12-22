@@ -40,7 +40,12 @@ function CommentModify(props){
     try{
       const data = await axiosDB.get(`/api/posts/comments/${commentsid}/membercheck`);
       if(data.data.statusCode === 200) setIsEdit(true)
-      else if(data.data.statusCode=== 400) alert(data.data.msg)
+      else if(data.data.statusCode=== 400)         
+      Swal.fire(
+        '로그인 정보를 확인해주세요',
+        '',
+        'error'
+      )    
       else {
         Swal.fire(
           '로그인 정보를 확인해주세요',

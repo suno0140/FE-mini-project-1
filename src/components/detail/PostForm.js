@@ -29,7 +29,11 @@ function PostForm() {
   const onAddHandler = async (e) => {
     e.preventDefault();
     if (newContent.title.trim() === "" || newContent.content.trim() === "") {
-      alert("공백을 채워주세요","error");
+      Swal.fire(
+        '공백을 채워주세요',
+        '',
+        'warning'
+      )    
       return;
     }
     Swal.fire({
