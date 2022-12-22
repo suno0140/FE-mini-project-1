@@ -73,14 +73,14 @@ function DetailInfo() {
         <ConTitle>{content?.title}</ConTitle>
         <ConBody>{content?.content}</ConBody>
         <ConMin>
-          <div>작성자 / {content.nickname}</div>
-          <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
+          <div>작성자 / {content?.nickname}</div>
+          <div>{dayjs(content?.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
         </ConMin>
         <Condiv>
-          <Stbutton onClick={() => checkGoodHandler(content.id)}>
+          <Stbutton onClick={() => checkGoodHandler(content?.id)}>
             <Heart size="25"></Heart>
           </Stbutton>
-          <Conspan>{content.recommendCount}</Conspan>
+          <Conspan>{content?.recommendCount}</Conspan>
         </Condiv>
 
         <BtnBox>
