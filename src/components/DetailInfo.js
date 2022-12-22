@@ -62,7 +62,7 @@ function DetailInfo() {
         dispatch(__getContent(id));
       }
     } catch (error) {
-      alert("로그인정보를 확인해주세요.");
+      Swal.fire("로그인 정보를 학인 해주세요", "", "error");
     }
   };
 
