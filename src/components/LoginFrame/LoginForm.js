@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Button from "../Button";
+import Button from "../feature/Button";
 import { axiosDB } from "../../api/axiosAPI";
 import { encrypt } from "./Encrypt";
 import { setCookies } from "../../api/cookieControler";

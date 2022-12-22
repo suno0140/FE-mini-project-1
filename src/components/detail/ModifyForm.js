@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __addContent, __patchContent } from "../redux/modules/contentsSlice";
+import { __addContent, __patchContent } from "../../redux/modules/contentsSlice";
 
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "../feature/Button";
 
 import Swal from "sweetalert2";
 
@@ -30,7 +30,7 @@ function ModifyForm() {
     e.preventDefault();
     console.log(newContent);
     if (newContent.title.trim() === "" || newContent.content.trim() === "") {
-      Swal.fire("", "공백을 채워주세요.", "warning");
+      Swal.fire("", "공백을 채워주세요.", "");
       return;
     }
     Swal.fire({

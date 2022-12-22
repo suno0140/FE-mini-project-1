@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import PostList from "../components/PostList";
+import PostList from "../components/main/PostList";
 import { axiosDB } from "../api/axiosAPI";
 import axios from "axios";
 import { DB } from "../api/axiosAPI";

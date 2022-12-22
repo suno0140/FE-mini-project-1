@@ -7,9 +7,9 @@ import {
   __getGoodContents,
   setInitialError,
   __searchContent,
-} from "../redux/modules/contentsSlice";
-import Button from "./Button";
-import { dateCalc } from "./dateCalc";
+} from "../../redux/modules/contentsSlice";
+import Button from "../feature/Button";
+import { dateCalc } from "../feature/dateCalc";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";

@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import styled from "styled-components";
-import { __addComment, __getComments } from "../redux/modules/commentsSlice";
-import { __getContent } from "../redux/modules/contentsSlice";
-import Button from "./Button";
+import { __addComment, __getComments } from "../../redux/modules/commentsSlice";
+import { __getContent } from "../../redux/modules/contentsSlice";
+import Button from "../feature/Button";
 
 import Swal from "sweetalert2";
 

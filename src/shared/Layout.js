@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Button from "../components/Button";
+import Button from "../components/feature/Button";
 import { ReactComponent as icon } from "../img/TS_icon_2.svg";
 // import { getCookie } from "../components/LoginFrame/LoginForm";
 import { getCookies } from "../api/cookieControler";
