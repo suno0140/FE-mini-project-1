@@ -6,8 +6,7 @@ import { __delContent, __getContent } from "../redux/modules/contentsSlice";
 import styled from "styled-components";
 import CommentForm from "./CommentForm";
 import CommentModify from "./CommentModify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { BsFillHeartFill } from "react-icons/bs";
 
 import { axiosDB } from "../api/axiosAPI";
 
@@ -77,8 +76,9 @@ function DetailInfo() {
           <div>{dayjs(content.createdAt).format("YYYY-MM-DD hh:mm:ss")}</div>
         </ConMin>
         <div>
-          <GoodBtn onClick={() => checkGoodHandler(content.id)}>좋아요</GoodBtn>
-          <FontAwesomeIcon icon={faHeart} />
+          <Stbutton onClick={() => checkGoodHandler(content.id)}>
+            <BsFillHeartFill size="25"></BsFillHeartFill>
+          </Stbutton>
           <Conspan>{content.recommendCount}</Conspan>
         </div>
 
@@ -184,4 +184,13 @@ const GoodBtn = styled(Button)`
 `;
 const Conspan = styled.span`
   margin-left: 2px;
+  font-size: 25px;
+`;
+const Stbutton = styled.button`
+  background-color: transparent;
+  border: none;
+  &:hover {
+    background-color: transparent;
+    color: Black;
+  }
 `;
