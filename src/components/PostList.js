@@ -76,6 +76,15 @@ function PostList() {
         </SortBtn>
       </SortBox>
       <ListBox>
+        <ListHead>
+          <ConTitle>제목</ConTitle>
+          <ConBody>내용</ConBody>
+          <ConAuthor>작성자</ConAuthor>
+          <ConHeart>
+            좋아요
+          </ConHeart>
+          <ConDate>날짜</ConDate>
+        </ListHead>
         {contents?.map((v) => {
           return (
             <List
@@ -120,12 +129,30 @@ const List = styled.div`
   padding: 30px;
   height: 45px;
   background-color: white;
+  gap: 20px;
+`;
+
+const ListHead = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 5px;
+  /* border: 1px solid var(--color3); */
+  margin-top: 20px;
+  padding:10px 30px 10px 30px;
+  height: 30px;
+  background: linear-gradient(0.75turn, var(--color3), var(--color2));
+  font-weight: bold;
+  color: white;
   gap: 10px;
 `;
 
 const ConTitle = styled.span`
   flex: 2;
   font-size: large;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ConBody = styled.span`
@@ -137,6 +164,9 @@ const ConBody = styled.span`
 
 const ConAuthor = styled.span`
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ConDate = styled.span`

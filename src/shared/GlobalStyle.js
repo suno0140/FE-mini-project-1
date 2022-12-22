@@ -18,8 +18,7 @@ const GlobalStyle = createGlobalStyle`
 }
 body {
     background: linear-gradient(to right, var(--color1), var(--color2));
-    width: 100vw;
-
+    /* width: 100vw; */
   }
 
   html {

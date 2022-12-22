@@ -66,13 +66,17 @@ const Box = styled.div`
 const FormBox = styled.form`
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   margin-top: 10px;
 `;
-const InputTitle = styled.input`
+const InputTitle = styled.textarea`
   border: none;
   border-radius: 5px;
   font-size: medium;
   flex: 1;
+  height: 100px;
+  padding: 10px;
+  resize: none;
 `;
 
 const SubBtn = styled(Button)`

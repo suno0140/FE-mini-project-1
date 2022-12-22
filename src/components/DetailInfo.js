@@ -134,7 +134,7 @@ const ConBody = styled.div`
   padding: 20px 0 50px;
   white-space: pre-line;
   border-top: 2px solid var(--color3);
-  border-bottom: 2px double var(--color3);
+  border-bottom: 2px solid var(--color3);
   margin-top: 50px;
   margin-bottom: 20px;
   text-align: left;
