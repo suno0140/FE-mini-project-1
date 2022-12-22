@@ -138,6 +138,7 @@ const ConBody = styled.div`
   margin-top: 50px;
   margin-bottom: 20px;
   text-align: left;
+  word-break: break-all;
 `;
 
 const ConMin = styled.div`

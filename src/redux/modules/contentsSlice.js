@@ -56,6 +56,11 @@ export const __addContent = createAsyncThunk(
       await axiosDB.post(`/api/posts`, payload);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
+      Swal.fire(
+        '로그인 정보를 확인해주세요',
+        '',
+        'error'
+      )
       return thunkAPI.rejectWithValue(error);
     }
   }
