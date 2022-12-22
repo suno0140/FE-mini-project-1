@@ -19,14 +19,11 @@ export const __addSignup = createAsyncThunk(
   "signup",
   async (payload, thunkAPI) => {
     try {
-      // const password = encrypt(`post.password`);
       const password = encrypt(payload.password);
-      console.log(password);
       const userid = payload.userid;
       const nickname = payload.nickname;
       const userInfo = { userid, nickname, password };
       await axiosDB.post(`api/members/signup`, userInfo);
-      // await axios.post(`http://3.35.9.50:8080/api/members/signup`, payload);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
       return thunkAPI.rejectWithValue("error");

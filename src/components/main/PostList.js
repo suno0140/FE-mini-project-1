@@ -35,11 +35,6 @@ function PostList() {
     }
     dispatch(__searchContent(keyword));
   };
-
-  // const onGoodContentsHandler = () => {
-  //   dispatch(__getGoodContents());
-  // };
-
   return (
     <div>
       <HomeHead>

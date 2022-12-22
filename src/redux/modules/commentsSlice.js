@@ -44,7 +44,6 @@ export const __delComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axiosDB.delete(`/api/posts/comments/${payload}`);
-      console.log('data',data)
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       Swal.fire(
@@ -78,7 +77,6 @@ export const commentsSlice = createSlice({
   reducers: {
     setInitialError: (state, action) => {
       state.error = null;
-      console.log("setError", state.error);
     },
   },
   extraReducers: (builder) => {
@@ -106,7 +104,6 @@ export const commentsSlice = createSlice({
       })
       .addCase(__delComment.rejected, (state, action) => {
         state.isLoading = false;
-        // state.error = action.payload;
       });
   },
 });

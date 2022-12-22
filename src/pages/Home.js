@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import PostList from "../components/main/PostList";
-import { axiosDB } from "../api/axiosAPI";
 import axios from "axios";
 import { DB } from "../api/axiosAPI";
 
@@ -11,10 +10,8 @@ function Home() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
-  // /api/members/kakao
 
   const kakaoLogin = async () => {
-    console.log(code);
     try {
       const data = await axios.get(`${DB}/api/members/kakao?code=${code}`);
       setCookies("id", data.headers.authorization, {
@@ -24,7 +21,6 @@ function Home() {
       navigate("/");
       return data;
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -33,15 +29,6 @@ function Home() {
       kakaoLogin();
     }
   }, [code]);
-
-  // const postLogin = async (post) => {
-  //   try {
-  //     const data = await axiosDB.post("/api/members/login", post);
-  //     return data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <div>

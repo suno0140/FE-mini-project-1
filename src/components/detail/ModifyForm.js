@@ -28,7 +28,6 @@ function ModifyForm() {
 
   const onPatchHandler = async (e) => {
     e.preventDefault();
-    console.log(newContent);
     if (newContent.title.trim() === "" || newContent.content.trim() === "") {
       Swal.fire("", "공백을 채워주세요.", "");
       return;

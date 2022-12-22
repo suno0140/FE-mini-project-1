@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 
 import { axiosDB } from "../../api/axiosAPI";
 
@@ -97,10 +96,7 @@ export const __searchContent = createAsyncThunk(
   "content/search",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
-      // /api/posts/search?keyword=게시글
       const data = await axiosDB.get(`/api/posts/search?keyword=${payload}`);
-      console.log(data);
       if (data.data.statusCode !== 200) {
         alert(data.data.msg);
         return null;
@@ -122,7 +118,6 @@ export const contentsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // getcontents reducer
       .addCase(__getContentsAll.pending, (state) => {
         state.isLoading = true;
       })
@@ -134,7 +129,6 @@ export const contentsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      // getgoodcontents reducer
       .addCase(__getGoodContents.pending, (state) => {
         state.isLoading = true;
       })
@@ -147,7 +141,6 @@ export const contentsSlice = createSlice({
         state.error = action.payload;
       })
 
-      // search
       .addCase(__searchContent.pending, (state) => {
         state.isLoading = true;
       })
@@ -159,7 +152,6 @@ export const contentsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      // getContent for DetailPage
       .addCase(__getContent.pending, (state) => {
         state.isLoading = true;
       })

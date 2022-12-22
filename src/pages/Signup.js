@@ -86,7 +86,7 @@ function Signup() {
       setPasswordConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요!");
       setIsPasswordConfirm(false);
     }
-  }, []);
+  });
 
   const idCheck = async (post) => {
     try {
@@ -98,7 +98,6 @@ function Signup() {
         Swal.fire("", "중복된 아이디 입니다.", "error");
       }
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -118,7 +117,6 @@ function Signup() {
 
   const nickCheck = async (post) => {
     try {
-      console.log(post);
       const data = await axiosDB.post(`api/members/check`, post);
       if (data.data.statusCode === 200) {
         Swal.fire("", "사용 가능한 닉네임 입니다.", "success");
@@ -128,7 +126,6 @@ function Signup() {
       }
       return data;
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -309,8 +306,6 @@ const StSignupBtn = styled(Button)`
   height: 40px;
   width: 90px;
   margin: 5px 0 0 10px;
-  /* background-color: ${(props) =>
-    props.disabled ? "gray" : "var(--color3)"}; */
   &:disabled {
     background-color: gray;
     color: black;

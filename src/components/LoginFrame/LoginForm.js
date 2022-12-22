@@ -96,10 +96,6 @@ function LoginForm() {
             회원가입
           </StSignupBtn>
         </StButtonBox>
-        {/* <StkakaoBtn id="login-kakao-btn" onClick={(event) => kakao(event)}>
-          {" "}
-          카카오로 로그인{" "}
-        </StkakaoBtn> */}
         <StkakaoBtn>
           <a
             id="kakao-login-btn"

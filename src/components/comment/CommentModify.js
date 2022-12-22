@@ -29,14 +29,6 @@ function CommentModify(props){
   const [comment, setComment] = useState(list.content);
   const [isEdit, setIsEdit] = useState(false);
 
-  // const textarea = useRef();
-
-  // const handleResize = (obj) =>{
-  //   console.log(obj.style.height)
-  //   obj.style.height = "auto";
-  //   obj.style.height = obj.style.scrollHeight + 'px';
-  // }
-
   const textRef = useRef();
   const handleResize = useCallback(() => {
     textRef.current.style.height = "auto"

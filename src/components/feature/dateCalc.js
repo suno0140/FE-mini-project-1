@@ -26,18 +26,3 @@ export const dateCalc = (postDate) => {
   }
   return date;
 }
-
-{/* // ミリ秒 （そのまま）
-console.log(Math.abs(time));
-
-// 秒 （time / 1000ミリ秒）60,000
-console.log(Math.abs(time) / 1000);
-
-// 分 （time / (60秒 * 1000ミリ秒)) 3,600,000
-console.log(Math.abs(diff) / (60 * 1000));
-
-// 時 （time / (60分 * 60秒 * 1000ミリ秒)) 86,400,000
-console.log(Math.abs(diff) / (60 * 60 * 1000));
-
-// 日 （time / (24時間 * 60分 * 60秒 * 1000ミリ秒)) 604,800,000
-console.log(Math.abs(diff) / (24 * 60 * 60 * 1000)); */}
