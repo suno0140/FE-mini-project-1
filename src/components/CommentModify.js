@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   __delComment,
   __patchComment,
@@ -17,52 +17,85 @@ import { axiosDB } from "../api/axiosAPI";
 
 import { dateCalc } from "./dateCalc";
 
-function CommentModify(props) {
-  const { id } = useParams();
+
+import Swal from "sweetalert2";
+
+function CommentModify(props){
+  const {id} = useParams();
+
   const list = props.content;
   const dispatch = useDispatch();
   const [comment, setComment] = useState(list.content);
   const [isEdit, setIsEdit] = useState(false);
 
-  const checkHandler = async (commentsid) => {
-    try {
-      const data = await axiosDB.get(
-        `/api/posts/comments/${commentsid}/membercheck`
-      );
-      if (data.data.statusCode === 200) setIsEdit(true);
-      else if (data.data.statusCode === 400) alert(data.data.msg);
-      else alert("error");
-    } catch (error) {
-      alert(error.message);
+  const checkHandler = async(commentsid) =>{
+    try{
+      const data = await axiosDB.get(`/api/posts/comments/${commentsid}/membercheck`);
+      if(data.data.statusCode === 200) setIsEdit(true)
+      else if(data.data.statusCode=== 400) alert(data.data.msg)
+      else {
+        Swal.fire(
+          '로그인 정보를 확인해주세요',
+          '',
+          'error'
+        )    
+      }
+    }catch(error){
+      Swal.fire(
+        '로그인 정보를 확인해주세요',
+        '',
+        'error'
+      )    
+
     }
   };
 
   const delHandler = async (comment_id) => {
-    if (!window.confirm("삭제 하시겠습니까?")) {
-      return;
-    } else {
-      await dispatch(__delComment(comment_id));
-      dispatch(__getContent(id));
-    }
-  };
-  const onModifyHandler = async (e) => {
-    e.preventDefault();
-    if (comment.trim() === "") {
-      alert("공백을 채워주세요");
-      return;
-    }
-    if (!window.confirm("수정 하겠습니까?")) {
-      return;
-    } else {
-      const commentId = list.id;
-      const content = { content: comment };
-      await dispatch(__patchComment({ content, commentId }));
-      dispatch(__getContent(id));
-      setIsEdit(false);
-    }
-  };
+    Swal.fire({
+      title: "삭제 하시겠습니까?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '삭제'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+          await dispatch(__delComment(comment_id));
+          dispatch(__getContent(id))
+      }
+    })
+  }
 
-  return (
+
+  const onModifyHandler = async(e) =>{
+    e.preventDefault()
+    if (comment.trim() === "") {
+      Swal.fire(
+        '공백을 체워주세요',
+        '',
+        'warning'
+      )
+      return
+    }
+    Swal.fire({
+      title: "수정 하시겠습니까?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '수정'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const commentId = list.id
+        const content = {content : comment}
+        await dispatch(__patchComment({content, commentId}));
+        dispatch(__getContent(id))
+        setIsEdit(false)
+      }
+    })
+  }
+  
+  return(
     <div>
       <CommentEl>
         <InputTitle

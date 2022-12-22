@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 import { axiosDB } from "../../api/axiosAPI";
+
+import Swal from "sweetalert2";
 
 const initialState = {
   contents: [],
@@ -38,10 +41,10 @@ export const __getContent = createAsyncThunk(
   "content/get",
   async (payload, thunkAPI) => {
     try {
-      const data = await axiosDB.get(`/api/posts/${payload}`);
+      const data = await axiosDB.get(`/api/posts/${payload}`);      
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
-      return thunkAPI.rejectWithValue("error");
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -61,9 +64,14 @@ export const __delContent = createAsyncThunk(
   "content/delete",
   async (payload, thunkAPI) => {
     try {
-      await axiosDB.delete(`/api/posts/${payload}`);
+      const data = await axiosDB.delete(`/api/posts/${payload}`);
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
+      Swal.fire(
+        '로그인 정보를 확인해주세요',
+        '',
+        'error'
+      )
       return thunkAPI.rejectWithValue("error");
     }
   }

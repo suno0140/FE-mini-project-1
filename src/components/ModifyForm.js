@@ -6,6 +6,8 @@ import { __addContent, __patchContent } from "../redux/modules/contentsSlice";
 import styled from "styled-components";
 import Button from "./Button";
 
+import Swal from "sweetalert2";
+
 function ModifyForm() {
   const { id } = useParams();
   const { content } = useSelector((state) => state.contents);
@@ -31,12 +33,19 @@ function ModifyForm() {
       alert("공백을 채워주세요");
       return;
     }
-    if (!window.confirm("수정 하겠습니까?")) {
-      return;
-    } else {
-      await dispatch(__patchContent({ id, newContent }));
-      setClick(true);
-    }
+    Swal.fire({
+      title: "수정 하겠습니까?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "수정",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await dispatch(__patchContent({ id, newContent }));
+        setClick(true);
+      }
+    });
   };
 
   useEffect(() => {
@@ -44,7 +53,6 @@ function ModifyForm() {
     if (msg === "success" && isClick) {
       navigate(`../detail/${id}`);
     }
-    alert(msg);
   }, [msg, isClick]);
 
   return (

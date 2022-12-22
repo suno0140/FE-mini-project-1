@@ -6,6 +6,9 @@ import { __addContent, __patchContent } from "../redux/modules/contentsSlice";
 import styled from "styled-components";
 import Button from "./Button";
 
+import Swal from 'sweetalert2'
+
+
 function PostForm() {
   const { id } = useParams();
   const { content } = useSelector((state) => state.contents);
@@ -25,24 +28,32 @@ function PostForm() {
   };
   const onAddHandler = async (e) => {
     e.preventDefault();
-    console.log(newContent);
     if (newContent.title.trim() === "" || newContent.content.trim() === "") {
-      alert("공백을 채워주세요");
+      alert("공백을 채워주세요","error");
       return;
     }
-    if (!window.confirm("추가 하겠습니까?")) {
-      return;
-    } else {
-      await dispatch(__addContent({ ...newContent }));
-      setClick(true);
-    }
+    Swal.fire({
+      title: '추가 하겠습니까?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '추가'
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        await dispatch(__addContent({ ...newContent }));
+        setClick(true);
+      }
+    })
   };
+
+
+
   useEffect(() => {
     if (!isClick) return;
     if (msg === "success" && isClick) {
       navigate("/");
     }
-    alert(msg);
   }, [msg, isClick]);
 
   return (

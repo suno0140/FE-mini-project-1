@@ -19,7 +19,6 @@ function PostList() {
   const navigate = useNavigate();
   const { isLoading, error, contents } = useSelector((state) => state.contents);
   const [keyword, setKeyword] = useState("");
-  console.log(contents);
   useEffect(() => {
     dispatch(setInitialError());
     dispatch(__getContentsAll());

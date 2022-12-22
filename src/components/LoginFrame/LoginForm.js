@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import { axiosDB } from "../../api/axiosAPI";
 import { encrypt } from "./Encrypt";
-import { setCookies, getCookies } from "../../api/cookieControler";
+import { setCookies } from "../../api/cookieControler";
+
+import Swal from "sweetalert2";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function LoginForm() {
       if (data.data.statusCode === 201) {
         return data;
       } else {
-        alert("아이디, 비밀번호를 잘못입력하셨습니다.");
+        Swal.fire("", "아이디, 비밀번호를 잘못입력하셨습니다.", "warning");
       }
     } catch (error) {
       console.log(error);
@@ -35,7 +37,7 @@ function LoginForm() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (userid === "" || password === "") {
-      alert("아이디, 비밀번호를 확인해주세요.");
+      Swal.fire("아이디, 비밀번호를 확인해주세요.", "", "warning");
       return;
     } else {
     }
@@ -43,7 +45,7 @@ function LoginForm() {
       userid,
       password,
     }).then((res) => {
-      if (res == undefined) {
+      if (res === undefined) {
         navigate(`/login`);
       } else {
         navigate(`/`);
