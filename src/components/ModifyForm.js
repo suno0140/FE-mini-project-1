@@ -30,7 +30,7 @@ function ModifyForm() {
     e.preventDefault();
     console.log(newContent);
     if (newContent.title.trim() === "" || newContent.content.trim() === "") {
-      alert("공백을 채워주세요");
+      Swal.fire("", "공백을 채워주세요.", "warning");
       return;
     }
     Swal.fire({
@@ -103,6 +103,7 @@ const InputBody = styled.textarea`
   border: 2px solid var(--color2);
   height: 250px;
   padding: 10px;
+  resize: none;
 `;
 const SubBtn = styled(Button)`
   height: 50px;

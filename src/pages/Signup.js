@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __addSignup } from "../redux/modules/signupSlice";
 import { axiosDB } from "../api/axiosAPI";
+import Swal from "sweetalert2";
 
 function Signup() {
   const navigate = useNavigate();
@@ -91,10 +92,10 @@ function Signup() {
     try {
       const data = await axiosDB.post(`api/members/check`, post);
       if (data.data.statusCode === 200) {
-        alert("사용 가능한 아이디 입니다.");
+        Swal.fire("", "사용 가능한 아이디 입니다.", "success");
         setIsUseridCheck(true);
       } else {
-        alert("중복된 아이디 입니다.");
+        Swal.fire("", "중복된 아이디 입니다.", "error");
       }
     } catch (error) {
       console.log(error);
@@ -104,10 +105,10 @@ function Signup() {
   const onIdCheck = (e) => {
     e.preventDefault();
     if (userid.length === 0) {
-      alert("아이디를 입력해주세요.");
+      Swal.fire("", "아이디를 입력해주세요.", "warning");      
       return;
     } else if (!useridRegex.test(userid)) {
-      alert("올바른 이메일형식이 아닙니다.");
+      Swal.fire("", "올바른 이메일형식이 아닙니다.", "error");      
       return;
     }
     idCheck({
@@ -120,10 +121,10 @@ function Signup() {
       console.log(post);
       const data = await axiosDB.post(`api/members/check`, post);
       if (data.data.statusCode === 200) {
-        alert("사용 가능한 닉네임 입니다.");
+        Swal.fire("", "사용 가능한 닉네임 입니다.", "success");      
         setIsNickNameCheck(true);
       } else {
-        alert("중복된 닉네임 입니다.");
+        Swal.fire("", "중복된 닉네임 입니다.", "error");      
       }
       return data;
     } catch (error) {
@@ -134,7 +135,7 @@ function Signup() {
   const onNickCheck = (e) => {
     e.preventDefault();
     if (nickname.length === 0) {
-      alert("닉네임을 입력해주세요.");
+      Swal.fire("", "닉네임을 입력해주세요.", "warning");      
       return;
     }
     nickCheck({ userid: "", nickname });
@@ -146,7 +147,7 @@ function Signup() {
 
   const onClickSignup = () => {
     dispatch(__addSignup({ userid, nickname, password }));
-    alert("회원가입에 성공하셨습니다.");
+    Swal.fire("", "회원가입에 성공하셨습니다.", "success");      
     navigate(`/login`);
   };
 

@@ -30,6 +30,11 @@ export const __addComment = createAsyncThunk(
       await axiosDB.post(`/api/posts/${payload.contentId}/comments`, {content : payload.content});
       return thunkAPI.fulfillWithValue("success");
     } catch (error) {
+      Swal.fire(
+        '로그인 정보를 확인해주세요',
+        '',
+        'error'
+      )
       return thunkAPI.rejectWithValue("error");
     }
   }

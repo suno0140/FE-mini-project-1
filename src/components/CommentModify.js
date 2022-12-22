@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -18,6 +18,7 @@ import { axiosDB } from "../api/axiosAPI";
 import { dateCalc } from "./dateCalc";
 
 
+import { useCallback } from "react";
 import Swal from "sweetalert2";
 
 function CommentModify(props){
@@ -27,6 +28,21 @@ function CommentModify(props){
   const dispatch = useDispatch();
   const [comment, setComment] = useState(list.content);
   const [isEdit, setIsEdit] = useState(false);
+
+  // const textarea = useRef();
+
+  // const handleResize = (obj) =>{
+  //   console.log(obj.style.height)
+  //   obj.style.height = "auto";
+  //   obj.style.height = obj.style.scrollHeight + 'px';
+  // }
+
+  const textRef = useRef();
+  const handleResize = useCallback(() => {
+    textRef.current.style.height = "auto"
+    textRef.current.style.height = textRef.current.scrollHeight + "px";
+  }, []);
+
 
   const checkHandler = async(commentsid) =>{
     try{
@@ -99,10 +115,14 @@ function CommentModify(props){
     <div>
       <CommentEl>
         <InputTitle
+          ref={textRef}
           required
           type="text"
           value={comment}
-          onChange={(event) => setComment(event.target.value)}
+          onChange={(event) => {
+            setComment(event.target.value);
+            handleResize();
+          }}
           readOnly={isEdit ? "" : "readonly"}
         ></InputTitle>
         <div>
@@ -132,6 +152,7 @@ function CommentModify(props){
               onClick={async () => {
                 await setComment(list.content);
                 await setIsEdit(false);
+                handleResize()
               }}
             >
               최소
@@ -154,14 +175,18 @@ function CommentModify(props){
   );
 }
 
+
 export default CommentModify;
 
-const InputTitle = styled.input`
+const InputTitle = styled.textarea`
   border: none;
   border-radius: 5px;
   padding: 10px;
   font-size: medium;
   flex: 1;
+  min-height: 25px;
+  max-height: 100px;
+  resize: none;
 `;
 
 const CommentBtn = styled(Button)`
