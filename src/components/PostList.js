@@ -86,7 +86,7 @@ function PostList() {
             >
               <ConTitle>{v.title}</ConTitle>
               <ConBody>{v.content}</ConBody>
-              <ConAuthor>작성자 / {v.nickname}</ConAuthor>
+              <ConAuthor>{v.nickname}</ConAuthor>
               <ConHeart>
                 <FontAwesomeIcon icon={faHeart} />
                 {v.recommendCount}
